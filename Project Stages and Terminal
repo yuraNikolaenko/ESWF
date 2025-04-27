@@ -1,0 +1,165 @@
+**Project Stages and Terminal Commands: ESWF System**
+
+---
+
+# 1. Initialize Project Structure
+
+```bash
+mkdir eswf
+cd eswf
+```
+
+Create two subfolders:
+```bash
+mkdir frontend
+mkdir backend
+```
+
+---
+
+# 2. Initialize Frontend (React + Vite)
+
+```bash
+cd frontend
+npm create vite@latest
+# Project name: frontend
+# Framework: React
+# Variant: JavaScript
+
+npm install
+npm install antd
+npm install --save-dev eslint
+```
+
+Start frontend development server:
+```bash
+npm run dev
+```
+
+---
+
+# 3. Initialize Backend (Django)
+
+```bash
+cd ../backend
+python -m venv venv
+venv\Scripts\activate  # Windows
+
+pip install django
+pip install djangorestframework
+
+django-admin startproject backend .
+python manage.py startapp core
+```
+
+Create initial migration:
+```bash
+python manage.py migrate
+```
+
+Run backend server:
+```bash
+python manage.py runserver
+```
+
+---
+
+# 4. Initialize Git and GitHub
+
+```bash
+cd ../eswf  # Ensure you are at the root
+
+git init
+git remote add origin https://github.com/yuraNikolaenko/ESWF
+```
+
+Create `.gitignore` at the root:
+```
+# Global ignore
+venv/
+__pycache__/
+*.pyc
+*.sqlite3
+/node_modules/
+/dist/
+```
+
+Stage and commit initial project:
+```bash
+git add .
+git commit -m "Initial project structure: frontend and backend"
+git push -u origin master
+```
+
+---
+
+# 5. Basic Setup
+
+- Connect frontend and backend manually for now.
+- Serve React app on port 5173, Django on 8000.
+
+For simultaneous running, use in root `package.json`:
+```bash
+npm install concurrently
+```
+
+Add script:
+```json
+"scripts": {
+  "dev": "concurrently \"npm run dev --prefix frontend\" \"npm start --prefix backend\""
+}
+```
+
+Run both servers:
+```bash
+npm run dev
+```
+
+---
+
+# 6. Theme Setup
+
+- Create `light-theme.css` and `dark-theme.css`.
+- Default theme: dark.
+- Context API for switching themes.
+
+---
+
+# 7. Components Setup
+
+- **Header**: Logo + Menu Button + Theme switch + Language/User area
+- **Sidebar**: Section Buttons
+- **ContentArea**: Placeholder for tabs
+- **FooterTabs**: Tabs to manage open sections/documents
+
+---
+
+# 8. Sidebar + Menu
+
+- Sidebar displays sections only.
+- Header Menu \u2630 opens:
+  - Sections ➔ Groups ➔ Items
+  - Smooth expanding menu width
+  - Toast message on item selection
+
+---
+
+# 9. Commit Points (Important!)
+
+| Stage | Commit Message |
+|:---|:---|
+| Base project created | "Initial project structure: frontend and backend" |
+| Theme context and switcher | "Theme switcher with dark default theme" |
+| Sidebar ready | "Sidebar with sections implemented" |
+| Header menu ready | "Multilevel expanding menu in Header implemented" |
+
+---
+
+# 10. Next steps (after current stage)
+
+- Tab management system
+- Dynamic loading of content into ContentArea
+- Language switcher
+- User authentication
+- API integration
+

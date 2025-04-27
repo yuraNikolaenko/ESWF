@@ -1,0 +1,114 @@
+**Project Requirements: ESWF System**
+
+---
+
+# 1. General Description
+
+- System: ESWF - Enterprise Software Framework
+- Purpose: Template and framework for building enterprise-level accounting and automation systems.
+- Stack:
+  - **Frontend**: React + Ant Design + Vite
+  - **Backend**: Django (Python) + SQLite (later Postgres)
+- Version control: Git + GitHub
+
+---
+
+# 2. Frontend Structure
+
+- **Header**:
+  - Left: Logo + Menu button (\u2630)
+  - Center: (empty for now)
+  - Right: Theme switcher + Language switcher + User info
+
+- **Sidebar**:
+  - Displays sections (Transport, Accounting, etc.)
+  - Only sections are shown now (groups and items are handled in Header menu)
+
+- **Content Area**:
+  - Displays opened directories and documents as tabs
+  - Dashboard is shown when no tabs are open
+
+- **Footer**:
+  - Tab management panel
+
+---
+
+# 3. Backend Structure
+
+- Django project initialized inside /backend
+- Basic app `core` created for future models and views
+- SQLite database for initial development
+
+---
+
+# 4. Theme and Styles
+
+- Base theme: **Dark theme by default**
+- Support for Light/Dark themes via CSS variables
+- Theme switcher button
+- Two theme files:
+  - `light-theme.css`
+  - `dark-theme.css`
+
+---
+
+# 5. Navigation and Menu
+
+- Multilevel menu:
+  - Menu button (\u2630)
+  - On click: Sections appear
+  - Click on section: Groups appear
+  - Click on group: Items appear
+
+- **Behavior**:
+  - Each level adds a new panel to the right
+  - Previous menus stay visible
+  - Menu width expands smoothly with animation
+  - Menu closes with slight delay after selecting an item
+
+- **Toast notifications**:
+  - Show after selecting an item
+  - Disappear after 3 seconds
+
+---
+
+# 6. Git and Project Organization
+
+- .gitignore properly set to exclude:
+  - `/node_modules/`
+  - `/venv/`
+  - Django migrations, __pycache__, etc.
+
+- Project structure:
+
+```
+/eswf
+  /backend
+    manage.py
+    /backend
+    /core
+  /frontend
+    /public
+    /src
+      /assets
+      /components
+      /context
+      /pages
+      /config
+      /styles
+```
+
+- GitHub repo: https://github.com/yuraNikolaenko/ESWF
+
+---
+
+# 7. Additional future requirements
+
+- Multilingual support (UA/EN)
+- Language switcher
+- User authentication (login/logout)
+- Tab persistence
+- Advanced error handling (ErrorBoundary)
+- Dynamic loading of directories and documents
+- Ability to plug in custom edit forms for specific directories
+

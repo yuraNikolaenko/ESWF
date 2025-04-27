@@ -1,9 +1,9 @@
 .footer-tabs {
   height: 40px;
-  background-color: var(--footer-background);
+  background-color: var(--footer-background); /* ТЕПЕР знову правильний фон */
   border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   padding: 0 16px;
-  color: var(--text-color); /* ДОДАЄМО */
+  color: var(--text-color);
 }
