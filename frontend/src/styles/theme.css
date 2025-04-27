@@ -1,0 +1,16 @@
+:root.theme-light {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --sidebar-background: #f8f9fa;
+    --header-background: #f8f9fa;
+    --footer-background: #f8f9fa;
+  }
+  
+  :root.theme-dark {
+    --background-color: #1e1e1e;
+    --text-color: #ffffff;
+    --sidebar-background: #2c2c2c;
+    --header-background: #2c2c2c;
+    --footer-background: #2c2c2c;
+  }
+  

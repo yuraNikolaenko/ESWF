@@ -1,10 +1,122 @@
 .header {
-    height: 64px;
-    background-color: var(--header-background);
-    border-bottom: 1px solid #f0f0f0;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
+  height: 64px;
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-color);
+  position: relative;
+}
+
+/* Лівий блок: Лого + Меню */
+.left-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.menu-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+/* Багаторівневе меню */
+.dropdown-multimenu {
+  position: absolute;
+  top: 64px;
+  left: 16px;
+  display: flex;
+  background-color: var(--header-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  z-index: 100;
+  padding: 8px;
+  gap: 8px;
+  overflow: hidden;
+  transition: width 0.3s ease; /* Анімація ширини */
+}
+
+/* Одна панель меню */
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  background-color: var(--header-background);
+  border-right: 1px solid var(--border-color);
+  padding: 8px;
+}
+
+.menu-panel:last-child {
+  border-right: none;
+}
+
+/* Елементи меню */
+.dropdown-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--border-color);
+}
+
+/* Права частина: керування */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Кнопка перемикача теми */
+.theme-switcher-btn {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.theme-switcher-btn:focus {
+  outline: none;
+}
+
+.theme-switcher-btn:hover {
+  background-color: var(--border-color);
+}
+
+/* Toast-повідомлення */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--header-background);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--text-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 200;
+  animation: fadeInOut 3s forwards;
+}
+
+/* Анімація появи і зникнення Toast */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
+}
