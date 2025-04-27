@@ -1,0 +1,42 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+dist/
+build/
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+venv/
+*.log
+*.pot
+*.pyc
+*.pyo
+.Python
+.env
+.env.*
+
+# VSCode
+.vscode/
+
+# System
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+
+# Output archives
+*.zip
+*.tar.gz
+
+# Others
+coverage/
+htmlcov/
+*.cover
+.hypothesis/
+.pytest_cache/

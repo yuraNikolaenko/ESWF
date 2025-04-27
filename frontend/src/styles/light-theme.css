@@ -1,0 +1,8 @@
+body.theme-light {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --header-background: #ffffff;
+    --sidebar-background: #fafafa;
+    --footer-background: #ffffff;
+  }
+  
