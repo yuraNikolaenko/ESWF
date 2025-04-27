@@ -7,3 +7,13 @@
   padding: 0 16px;
   color: var(--text-color);
 }
+
+.tab-item {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  border-bottom: 1px solid #6f817e;
+  border-radius: 16px;
+  /* color: var(--text-color); */
+  color: #6f817e;
+}

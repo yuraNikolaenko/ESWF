@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import '../../styles/Header.css';
 import sections from '../../config/sections';
 import { useTheme } from '../../context/ThemeContext';
+import useTabs from '../../hooks/useTabs'; // ➡️ Додаємо сюди useTabs
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const { addTab } = useTabs(); // ➡️ Підключаємо вкладки
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
   const [activeGroup, setActiveGroup] = useState(null);
@@ -16,22 +18,33 @@ const Header = () => {
     setActiveGroup(null);
   };
 
-  const handleItemClick = (itemName) => {
-    setToastMessage(`Selected: ${itemName}`);
+  const handleItemClick = (item) => {
+    // Додаємо вкладку
+    addTab({
+      id: `item-${item.code}`,  // Унікальний ID вкладки
+      title: item.name,         // Назва вкладки
+      type: 'directoryList',    // Тип вкладки (можемо потім розширити)
+      code: item.code,          // Код елемента
+      data: null
+    });
+
+    // Показати повідомлення
+    setToastMessage(`Selected: ${item.name}`);
     
+    // Плавне закриття меню
     setTimeout(() => {
       setToastMessage(null);
       setMenuOpen(false);
       setActiveSection(null);
       setActiveGroup(null);
-    }, 2000); // Плавне закриття після вибору
+    }, 1000);
   };
 
   return (
     <header className="header">
       {/* Ліва частина: Лого + Кнопка */}
       <div className="left-block">
-        <div className="logo">LOGO</div>
+        <div className="logo">ESWF</div>
         <button className="menu-button" onClick={toggleMenu}>
           ☰
         </button>
@@ -83,7 +96,7 @@ const Header = () => {
                 <div
                   key={item.code}
                   className="dropdown-item"
-                  onClick={() => handleItemClick(item.name)}
+                  onClick={() => handleItemClick(item)}
                 >
                   {item.name}
                 </div>
@@ -96,9 +109,9 @@ const Header = () => {
       {/* Права частина: Кнопки */}
       <div className="header-controls">
         <button className="theme-switcher-btn" onClick={toggleTheme}>
-          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+          {theme === 'light' ? 'Dark' : 'Light'}
         </button>
-        🔸 Language | User
+        🔸 EN/UA 🔸 Admin | y.nikolaenko@gmial.com
       </div>
 
       {/* Toast */}

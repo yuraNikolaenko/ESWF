@@ -4,25 +4,26 @@ import Sidebar from './components/Sidebar/Sidebar';
 import ContentArea from './components/ContentArea/ContentArea';
 import FooterTabs from './components/FooterTabs/FooterTabs';
 import Dashboard from './pages/Dashboard';
-import { ThemeProvider } from './context/ThemeContext'; // додано
+import { ThemeProvider } from './context/ThemeContext';
+import { TabProvider } from './context/TabContext';
 import './styles/index.css';
 import './styles/light-theme.css'; // Default light theme
 import './styles/dark-theme.css';  // Default dark theme
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <div className="app-container">
-        <Header />
-        <div className="main-area">
-          <Sidebar />
-          <ContentArea>
-            <Dashboard />
-          </ContentArea>
+    <ThemeProvider><TabProvider> 
+        <div className="app-container">
+          <Header />
+          <div className="main-area">
+            <Sidebar />
+            <ContentArea>
+              <Dashboard />
+            </ContentArea>
+          </div>
+          <FooterTabs />
         </div>
-        <FooterTabs />
-      </div>
-    </ThemeProvider>
+      </TabProvider></ThemeProvider>
   );
 };
 
