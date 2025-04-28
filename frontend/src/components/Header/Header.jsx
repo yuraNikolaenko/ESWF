@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import '../../styles/Header.css';
-import sections from '../../config/sections';
-import { useTheme } from '../../context/ThemeContext';
-import useTabs from '../../hooks/useTabs'; // ➡️ Додаємо сюди useTabs
+import React, { useState } from "react";
+import "../../styles/Header.css";
+import sections from "../../config/sections";
+import { useTheme } from "../../context/ThemeContext";
+import useTabs from "../../hooks/useTabs"; // ➡️ Додаємо сюди useTabs
+import { useLanguage } from "../../context/LanguageContext";
+import { getDisplayName } from "../../utils/getDisplayName";
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
   const { addTab } = useTabs(); // ➡️ Підключаємо вкладки
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
@@ -13,7 +16,7 @@ const Header = () => {
   const [toastMessage, setToastMessage] = useState(null);
 
   const toggleMenu = () => {
-    setMenuOpen(prev => !prev);
+    setMenuOpen((prev) => !prev);
     setActiveSection(null);
     setActiveGroup(null);
   };
@@ -21,17 +24,18 @@ const Header = () => {
   const handleItemClick = (item) => {
     // Додаємо вкладку
     addTab({
-      id: `item-${item.code}`,  // Унікальний ID вкладки
-      title: item.name,         // Назва вкладки
-      type: 'directoryList',    // Тип вкладки (можемо потім розширити)
-      code: item.code,          // Код елемента
+      id: `item-${item.code}`, // Унікальний ID вкладки
+      title: getDisplayName(item, language),
+      type: "directoryList", // Тип вкладки (можемо потім розширити)
+      code: item.code, // Код елемента
       itemType: item.type,
-      data: null
+      originalItem: item ,
+      data: null,
     });
 
     // Показати повідомлення
-    setToastMessage(`Selected: ${item.name}`);
-    
+    setToastMessage(`Selected: ${getDisplayName(item, language)}`);
+
     // Плавне закриття меню
     setTimeout(() => {
       setToastMessage(null);
@@ -43,39 +47,34 @@ const Header = () => {
 
   return (
     <header className="header">
-      {/* Ліва частина: Лого + Кнопка */}
       <div className="left-block">
-        <div className="logo">ESWF</div>
-        <button className="menu-button" onClick={toggleMenu}>
-          ☰
-        </button>
+        <div className="logo">LOGO</div>
+        <button className="menu-button" onClick={toggleMenu}>☰</button>
       </div>
 
       {/* Меню */}
       {menuOpen && (
         <div
           className="dropdown-multimenu"
-          style={{
-            width: activeGroup ? '640px' : activeSection ? '420px' : '200px'
-          }}
+          style={{ width: activeGroup ? '640px' : activeSection ? '420px' : '200px' }}
         >
-          {/* Sections */}
           <div className="menu-panel">
-            {sections.map(section => (
-              <div
-                key={section.code}
-                className="dropdown-item"
-                onClick={() => {
-                  setActiveSection(section);
-                  setActiveGroup(null);
-                }}
-              >
-                {section.name}
-              </div>
+            {sections
+              .filter(section => section.showInMenu)
+              .map(section => (
+                <div
+                  key={section.code}
+                  className="dropdown-item"
+                  onClick={() => {
+                    setActiveSection(section);
+                    setActiveGroup(null);
+                  }}
+                >
+                  {getDisplayName(section, language)}
+                </div>
             ))}
           </div>
 
-          {/* Groups */}
           {activeSection && (
             <div className="menu-panel">
               {activeSection.groups.map(group => (
@@ -84,13 +83,12 @@ const Header = () => {
                   className="dropdown-item"
                   onClick={() => setActiveGroup(group)}
                 >
-                  {group.groupName}
+                   {language === 'en' ? group.groupName : group.groupName_ua}
                 </div>
               ))}
             </div>
           )}
 
-          {/* Items */}
           {activeGroup && (
             <div className="menu-panel">
               {activeGroup.items.map(item => (
@@ -99,7 +97,7 @@ const Header = () => {
                   className="dropdown-item"
                   onClick={() => handleItemClick(item)}
                 >
-                  {item.name}
+                  {getDisplayName(item, language)}
                 </div>
               ))}
             </div>
@@ -107,22 +105,24 @@ const Header = () => {
         </div>
       )}
 
-      {/* Права частина: Кнопки */}
+      {/* Кнопки справа */}
       <div className="header-controls">
         <button className="theme-switcher-btn" onClick={toggleTheme}>
-          {theme === 'light' ? 'Dark' : 'Light'}
+          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
         </button>
-        🔸 EN/UA 🔸 Admin | y.nikolaenko@gmial.com
+        <button className="theme-switcher-btn" onClick={toggleLanguage}>
+          {language === 'en' ? 'UA' : 'EN'}
+        </button>
+        🔸 User
       </div>
 
-      {/* Toast */}
+      {/* Toast повідомлення */}
       {toastMessage && (
-        <div className="toast">
-          {toastMessage}
-        </div>
+        <div className="toast">{toastMessage}</div>
       )}
     </header>
   );
 };
+
 
 export default Header;
