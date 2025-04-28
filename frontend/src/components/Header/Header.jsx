@@ -6,6 +6,9 @@ import useTabs from "../../hooks/useTabs"; // ➡️ Додаємо сюди use
 import { useLanguage } from "../../context/LanguageContext";
 import { getDisplayName } from "../../utils/getDisplayName";
 
+import uaFlag from "../../assets/ua-flag.svg";
+import gbFlag from "../../assets/gb-flag.svg";
+
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
@@ -29,7 +32,7 @@ const Header = () => {
       type: "directoryList", // Тип вкладки (можемо потім розширити)
       code: item.code, // Код елемента
       itemType: item.type,
-      originalItem: item ,
+      originalItem: item,
       data: null,
     });
 
@@ -49,19 +52,23 @@ const Header = () => {
     <header className="header">
       <div className="left-block">
         <div className="logo">LOGO</div>
-        <button className="menu-button" onClick={toggleMenu}>☰</button>
+        <button className="menu-button" onClick={toggleMenu}>
+          ☰
+        </button>
       </div>
 
       {/* Меню */}
       {menuOpen && (
         <div
           className="dropdown-multimenu"
-          style={{ width: activeGroup ? '640px' : activeSection ? '420px' : '200px' }}
+          style={{
+            width: activeGroup ? "640px" : activeSection ? "420px" : "200px",
+          }}
         >
           <div className="menu-panel">
             {sections
-              .filter(section => section.showInMenu)
-              .map(section => (
+              .filter((section) => section.showInMenu)
+              .map((section) => (
                 <div
                   key={section.code}
                   className="dropdown-item"
@@ -72,18 +79,18 @@ const Header = () => {
                 >
                   {getDisplayName(section, language)}
                 </div>
-            ))}
+              ))}
           </div>
 
           {activeSection && (
             <div className="menu-panel">
-              {activeSection.groups.map(group => (
+              {activeSection.groups.map((group) => (
                 <div
                   key={group.groupName}
                   className="dropdown-item"
                   onClick={() => setActiveGroup(group)}
                 >
-                   {language === 'en' ? group.groupName : group.groupName_ua}
+                  {language === "en" ? group.groupName : group.groupName_ua}
                 </div>
               ))}
             </div>
@@ -91,7 +98,7 @@ const Header = () => {
 
           {activeGroup && (
             <div className="menu-panel">
-              {activeGroup.items.map(item => (
+              {activeGroup.items.map((item) => (
                 <div
                   key={item.code}
                   className="dropdown-item"
@@ -108,21 +115,22 @@ const Header = () => {
       {/* Кнопки справа */}
       <div className="header-controls">
         <button className="theme-switcher-btn" onClick={toggleTheme}>
-          Switch to {theme === 'light' ? 'Dark' : 'Light'} Theme
+          {theme === "light" ? <>🌙 </> : <>☀️ </>}
         </button>
         <button className="theme-switcher-btn" onClick={toggleLanguage}>
-          {language === 'en' ? 'UA' : 'EN'}
+          {language === "en" ? (
+            <img src={uaFlag} alt="UA" className="flag-icon" />
+          ) : (
+            <img src={gbFlag} alt="EN" className="flag-icon" />
+          )}
         </button>
         🔸 User
       </div>
 
       {/* Toast повідомлення */}
-      {toastMessage && (
-        <div className="toast">{toastMessage}</div>
-      )}
+      {toastMessage && <div className="toast">{toastMessage}</div>}
     </header>
   );
 };
-
 
 export default Header;

@@ -76,7 +76,7 @@
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 1px;
 }
 
 /* Кнопка перемикача теми */
@@ -84,10 +84,17 @@
   background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 6px 12px;
+  padding: 4px 8px; /* Трохи компактніше */
   border-radius: 6px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Відстань між іконкою і текстом */
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.theme-switcher-btn:hover {
+  background-color: var(--border-color);
 }
 
 .theme-switcher-btn:focus {
@@ -119,4 +126,11 @@
   10% { opacity: 1; transform: translateY(0); }
   90% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(20px); }
+}
+
+.flag-icon {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: 2px;
 }
