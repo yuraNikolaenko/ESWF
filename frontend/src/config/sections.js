@@ -1,15 +1,16 @@
 import { ItemType } from './itemTypes';
 
-// Schema version to track changes
-export const schemaVersion = '1.0.1'; // Оновили версію схеми
+// Schema version
+export const schemaVersion = '1.0.2'; // Оновили версію схеми
 
 const sections = [
   {
     code: "transport",
     name: "Transport",
     name_ua: "Транспорт",
-    showInSidebar: true,  // ➡️ Додано
-    showInMenu: true,     // ➡️ Додано
+    showInSidebar: true,
+    showInMenu: true,
+    icon: "CarOutlined", // ❗ додано
     groups: [
       {
         groupName: "Master Data",
@@ -21,21 +22,24 @@ const sections = [
             name: "Vehicles",
             name_ua: "Автомобілі",
             hierarchy: true,
-            customForm: true
+            customForm: true,
+            icon: "CarOutlined" // ❗
           },
           {
             type: ItemType.MASTERDATA,
             code: "drivers",
             name: "Drivers",
             name_ua: "Водії",
-            hierarchy: false
+            hierarchy: false,
+            icon: "UserOutlined" // ❗
           },
           {
             type: ItemType.MASTERDATA,
             code: "routes",
             name: "Routes",
             name_ua: "Маршрути",
-            hierarchy: false
+            hierarchy: false,
+            icon: "EnvironmentOutlined" // ❗
           }
         ]
       },
@@ -48,14 +52,16 @@ const sections = [
             code: "waybills",
             name: "Waybills",
             name_ua: "Путеві листи",
-            customForm: true
+            customForm: true,
+            icon: "FileTextOutlined" // ❗
           },
           {
             type: ItemType.TRANSACTIONDATA,
             code: "maintenanceRecords",
             name: "Maintenance Records",
             name_ua: "Ремонтні відомості",
-            customForm: false
+            customForm: false,
+            icon: "ToolOutlined" // ❗
           }
         ]
       }
@@ -65,8 +71,9 @@ const sections = [
     code: "accounting",
     name: "Accounting",
     name_ua: "Бухгалтерія",
-    showInSidebar: true,  // ➡️ Додано
-    showInMenu: true,     // ➡️ Додано
+    showInSidebar: true,
+    showInMenu: true,
+    icon: "DollarOutlined", // ❗
     groups: [
       {
         groupName: "Master Data",
@@ -77,7 +84,8 @@ const sections = [
             code: "clients",
             name: "Clients",
             name_ua: "Клієнти",
-            hierarchy: false
+            hierarchy: false,
+            icon: "TeamOutlined" // ❗
           }
         ]
       },
@@ -90,14 +98,16 @@ const sections = [
             code: "invoices",
             name: "Invoices",
             name_ua: "Рахунки",
-            hierarchy: false
+            hierarchy: false,
+            icon: "ProfileOutlined" // ❗
           },
           {
             type: ItemType.TRANSACTIONDATA,
             code: "incomingPayments",
             name: "Incoming Payments",
             name_ua: "Надходження платежів",
-            hierarchy: false
+            hierarchy: false,
+            icon: "WalletOutlined" // ❗
           }
         ]
       }
@@ -107,24 +117,27 @@ const sections = [
     code: "service",
     name: "Service",
     name_ua: "Сервіс",
-    showInSidebar: false,   // ➡️ В Sidebar не показуємо
-    showInMenu: true,       // ➡️ В меню показуємо
+    showInSidebar: false,
+    showInMenu: true,
+    icon: "SettingOutlined", // ❗
     groups: [
       {
         groupName: "Processes",
-        groupName_ua: "Обробки",
+        groupName_ua: "Процеси",
         items: [
           {
-            type: ItemType.CUSTOM,  // ➡️ Новий тип custom
+            type: ItemType.CUSTOM,
             code: "deleteMarkedObjects",
             name: "Delete Marked Objects",
-            name_ua: "Видалення помічених об'єктів"
+            name_ua: "Видалення помічених об'єктів",
+            icon: "DeleteOutlined" // ❗
           },
           {
             type: ItemType.CUSTOM,
             code: "exchangeBAF",
             name: "Exchange with BAF",
-            name_ua: "Обмін з BAF"
+            name_ua: "Обмін з BAF",
+            icon: "SwapOutlined" // ❗
           }
         ]
       },
@@ -136,7 +149,8 @@ const sections = [
             type: ItemType.CUSTOM,
             code: "applicationSettings",
             name: "Application Settings",
-            name_ua: "Налаштування застосунку"
+            name_ua: "Налаштування застосунку",
+            icon: "SettingOutlined" // ❗
           }
         ]
       }
