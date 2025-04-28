@@ -1,0 +1,59 @@
+.section-groups {
+    padding: 20px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: var(--text-color);
+  }
+  
+  /* Контейнер груп — горизонтальний скрол */
+  .groups-container {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  
+  /* Картка групи */
+  .group-card {
+    background-color: var(--sidebar-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 220px;
+    flex-shrink: 0;
+  }
+  
+  /* Назва групи */
+  .group-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+  }
+  
+  /* Список ітемів у групі */
+  .group-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* Кнопка ітема */
+  .group-item-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-color);
+    transition: background-color 0.3s;
+  }
+  
+  .group-item-btn:hover {
+    background-color: var(--border-color);
+  }
+  

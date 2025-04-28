@@ -2,6 +2,7 @@
 
 export const ItemType = {
     MASTERDATA: 'masterdata',
-    TRANSACTIONDATA: 'transactiondata'
+    TRANSACTIONDATA: 'transactiondata',
+    CUSTOM: 'custom'
   };
   

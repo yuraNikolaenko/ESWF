@@ -25,6 +25,7 @@ const Header = () => {
       title: item.name,         // Назва вкладки
       type: 'directoryList',    // Тип вкладки (можемо потім розширити)
       code: item.code,          // Код елемента
+      itemType: item.type,
       data: null
     });
 

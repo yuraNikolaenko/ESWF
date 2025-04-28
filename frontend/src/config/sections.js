@@ -1,27 +1,27 @@
 import { ItemType } from './itemTypes';
 
 // Schema version to track changes
-export const schemaVersion = '1.0.0';
+export const schemaVersion = '1.0.1'; // Оновили версію схеми
 
 const sections = [
   {
-    // Section: logical block in the system (Transport, Accounting, etc.)
-    code: "transport", // Unique system code of the section
-    name: "Transport", // English name
-    name_ua: "Транспорт", // Ukrainian name
+    code: "transport",
+    name: "Transport",
+    name_ua: "Транспорт",
+    showInSidebar: true,  // ➡️ Додано
+    showInMenu: true,     // ➡️ Додано
     groups: [
       {
-        // Group inside the section (will be shown as separate Card)
-        groupName: "Master Data", // English group name
-        groupName_ua: "Довідники", // Ukrainian group name
+        groupName: "Master Data",
+        groupName_ua: "Довідники",
         items: [
           {
-            type: ItemType.MASTERDATA, // Type: masterdata (directory)
-            code: "vehicles", // Unique code
-            name: "Vehicles", // English name
-            name_ua: "Автомобілі", // Ukrainian name
-            hierarchy: true, // Is hierarchical? (true/false)
-            customForm: true // Has custom form? (true/false)
+            type: ItemType.MASTERDATA,
+            code: "vehicles",
+            name: "Vehicles",
+            name_ua: "Автомобілі",
+            hierarchy: true,
+            customForm: true
           },
           {
             type: ItemType.MASTERDATA,
@@ -65,6 +65,8 @@ const sections = [
     code: "accounting",
     name: "Accounting",
     name_ua: "Бухгалтерія",
+    showInSidebar: true,  // ➡️ Додано
+    showInMenu: true,     // ➡️ Додано
     groups: [
       {
         groupName: "Master Data",
@@ -96,6 +98,45 @@ const sections = [
             name: "Incoming Payments",
             name_ua: "Надходження платежів",
             hierarchy: false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    code: "service",
+    name: "Service",
+    name_ua: "Сервіс",
+    showInSidebar: false,   // ➡️ В Sidebar не показуємо
+    showInMenu: true,       // ➡️ В меню показуємо
+    groups: [
+      {
+        groupName: "Processes",
+        groupName_ua: "Обробки",
+        items: [
+          {
+            type: ItemType.CUSTOM,  // ➡️ Новий тип custom
+            code: "deleteMarkedObjects",
+            name: "Delete Marked Objects",
+            name_ua: "Видалення помічених об'єктів"
+          },
+          {
+            type: ItemType.CUSTOM,
+            code: "exchangeBAF",
+            name: "Exchange with BAF",
+            name_ua: "Обмін з BAF"
+          }
+        ]
+      },
+      {
+        groupName: "Settings",
+        groupName_ua: "Налаштування",
+        items: [
+          {
+            type: ItemType.CUSTOM,
+            code: "applicationSettings",
+            name: "Application Settings",
+            name_ua: "Налаштування застосунку"
           }
         ]
       }

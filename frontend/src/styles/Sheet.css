@@ -1,0 +1,16 @@
+.sheet {
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  .sheet h2 {
+    margin-bottom: 16px;
+  }
+  
+  .sheet p {
+    font-size: 16px;
+  }
+  

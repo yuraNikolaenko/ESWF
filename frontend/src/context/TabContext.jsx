@@ -7,15 +7,30 @@ export const TabProvider = ({ children }) => {
   const [activeTabId, setActiveTabId] = useState(null);
 
   const addTab = (tab) => {
-    setTabs((prev) => [...prev, tab]);
-    setActiveTabId(tab.id);
+    setTabs((prevTabs) => {
+      const exists = prevTabs.some((t) => t.id === tab.id);
+      if (exists) {
+        setActiveTabId(tab.id); // Якщо вкладка вже є — активуємо її
+        return prevTabs;        // НЕ додаємо дубль
+      }
+      return [...prevTabs, tab]; // Інакше додаємо нову вкладку
+    });
+    setActiveTabId(tab.id); // У будь-якому випадку активуємо вкладку
   };
 
   const closeTab = (id) => {
-    setTabs((prev) => prev.filter((tab) => tab.id !== id));
-    if (activeTabId === id && tabs.length > 0) {
-      setActiveTabId(tabs[0].id);
-    }
+    setTabs((prevTabs) => {
+      const filteredTabs = prevTabs.filter((tab) => tab.id !== id);
+      if (activeTabId === id) {
+        // Якщо закриваємо активну вкладку
+        if (filteredTabs.length > 0) {
+          setActiveTabId(filteredTabs[filteredTabs.length - 1].id); // Активуємо останню вкладку
+        } else {
+          setActiveTabId(null); // Взагалі немає вкладок
+        }
+      }
+      return filteredTabs;
+    });
   };
 
   const setActiveTab = (id) => {

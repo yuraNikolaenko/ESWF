@@ -1,19 +1,54 @@
 .footer-tabs {
-  height: 40px;
-  background-color: var(--footer-background); /* ТЕПЕР знову правильний фон */
-  border-top: 1px solid var(--border-color);
   display: flex;
   align-items: center;
-  padding: 0 16px;
-  color: var(--text-color);
+  height: 40px;
+  background-color: var(--footer-background);
+  border-top: 1px solid var(--border-color);
+  padding: 0 8px;
+  overflow-x: hidden; /* Горизонтальна прокрутка! */
+  overflow-y: hidden;
+  flex-shrink: 0;
+  transition: all 0.3s ease; /* Плавне оновлення футера */
 }
 
 .tab-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--tab-background); /* Використовуємо змінну! */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.tab-item.active {
+  background-color: var(--tab-active-background); /* Використовуємо змінну! */
+  color: var(--tab-active-text); /* Використовуємо змінну! */
+  transform: scale(1.09); /* Трохи збільшуємо активну вкладку */
+}
+
+/* Заголовок вкладки */
+.tab-title {
+  margin-right: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* Кнопка закриття вкладки */
+.close-btn {
   background-color: transparent;
   border: none;
-  font-size: 18px;
-  border-bottom: 1px solid #6f817e;
-  border-radius: 16px;
-  /* color: var(--text-color); */
-  color: #6f817e;
+  font-size: 16px;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  transition: color 0.3s;
+}
+
+/* Ховер на кнопці закриття */
+.close-btn:hover {
+  color: red;
 }

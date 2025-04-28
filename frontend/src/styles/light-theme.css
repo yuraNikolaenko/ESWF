@@ -4,4 +4,7 @@ body.theme-light {
   --header-background: #78be93;
   --sidebar-background: #89cca3;
   --footer-background: #78be93;
+  --tab-background: #c6e3d2; /* Світлий фон вкладки */
+  --tab-active-background: #ffffff; /* Активна вкладка біла */
+  --tab-active-text: #2196F3; /* Синій текст активної вкладки */
 }
