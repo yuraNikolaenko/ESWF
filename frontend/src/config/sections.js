@@ -1,7 +1,7 @@
 import { ItemType } from './itemTypes';
 
 // Schema version
-export const schemaVersion = '1.0.2'; // Оновили версію схеми
+export const schemaVersion = '1.0.3';
 
 const sections = [
   {
@@ -10,7 +10,7 @@ const sections = [
     name_ua: "Транспорт",
     showInSidebar: true,
     showInMenu: true,
-    icon: "CarOutlined", // ❗ додано
+    icon: "CarOutlined",
     groups: [
       {
         groupName: "Master Data",
@@ -23,7 +23,7 @@ const sections = [
             name_ua: "Автомобілі",
             hierarchy: true,
             customForm: true,
-            icon: "CarOutlined" // ❗
+            icon: "CarOutlined"
           },
           {
             type: ItemType.MASTERDATA,
@@ -31,7 +31,7 @@ const sections = [
             name: "Drivers",
             name_ua: "Водії",
             hierarchy: false,
-            icon: "UserOutlined" // ❗
+            icon: "UserOutlined"
           },
           {
             type: ItemType.MASTERDATA,
@@ -39,7 +39,15 @@ const sections = [
             name: "Routes",
             name_ua: "Маршрути",
             hierarchy: false,
-            icon: "EnvironmentOutlined" // ❗
+            icon: "EnvironmentOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "destinations",
+            name: "Destinations",
+            name_ua: "Пункти призначення",
+            hierarchy: false,
+            icon: "FlagOutlined"
           }
         ]
       },
@@ -53,7 +61,7 @@ const sections = [
             name: "Waybills",
             name_ua: "Путеві листи",
             customForm: true,
-            icon: "FileTextOutlined" // ❗
+            icon: "FileTextOutlined"
           },
           {
             type: ItemType.TRANSACTIONDATA,
@@ -61,7 +69,40 @@ const sections = [
             name: "Maintenance Records",
             name_ua: "Ремонтні відомості",
             customForm: false,
-            icon: "ToolOutlined" // ❗
+            icon: "ToolOutlined"
+          }
+        ]
+      },
+      {
+        groupName: "Analytics",
+        groupName_ua: "Аналітика",
+        items: [
+          {
+            type: ItemType.REPORT,
+            code: "fuelMovement",
+            name: "Fuel Movement Report",
+            name_ua: "Відомість руху пального",
+            icon: "BarChartOutlined"
+          },
+          {
+            type: ItemType.REPORT,
+            code: "transportStatistics",
+            name: "Transport Statistics",
+            name_ua: "Статистика роботи транспорту",
+            icon: "LineChartOutlined"
+          }
+        ]
+      },
+      {
+        groupName: "Processes",
+        groupName_ua: "Процеси",
+        items: [
+          {
+            type: ItemType.PROCESS,
+            code: "kanbanBoard",
+            name: "Kanban Board",
+            name_ua: "Канбан-дошка",
+            icon: "AppstoreOutlined"
           }
         ]
       }
@@ -73,7 +114,7 @@ const sections = [
     name_ua: "Бухгалтерія",
     showInSidebar: true,
     showInMenu: true,
-    icon: "DollarOutlined", // ❗
+    icon: "DollarOutlined",
     groups: [
       {
         groupName: "Master Data",
@@ -85,7 +126,39 @@ const sections = [
             name: "Clients",
             name_ua: "Клієнти",
             hierarchy: false,
-            icon: "TeamOutlined" // ❗
+            icon: "TeamOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "businessOperations",
+            name: "Business Operations",
+            name_ua: "Господарські операції",
+            hierarchy: false,
+            icon: "AuditOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "chartOfAccounts",
+            name: "Chart of Accounts",
+            name_ua: "План рахунків",
+            hierarchy: true,
+            icon: "BookOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "currencies",
+            name: "Currencies",
+            name_ua: "Валюти",
+            hierarchy: false,
+            icon: "GlobalOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "organizations",
+            name: "Organizations",
+            name_ua: "Організації",
+            hierarchy: false,
+            icon: "ApartmentOutlined"
           }
         ]
       },
@@ -99,7 +172,7 @@ const sections = [
             name: "Invoices",
             name_ua: "Рахунки",
             hierarchy: false,
-            icon: "ProfileOutlined" // ❗
+            icon: "ProfileOutlined"
           },
           {
             type: ItemType.TRANSACTIONDATA,
@@ -107,7 +180,42 @@ const sections = [
             name: "Incoming Payments",
             name_ua: "Надходження платежів",
             hierarchy: false,
-            icon: "WalletOutlined" // ❗
+            icon: "WalletOutlined"
+          },
+          {
+            type: ItemType.TRANSACTIONDATA,
+            code: "documentOperations",
+            name: "Document Operations",
+            name_ua: "Документ операція",
+            hierarchy: false,
+            icon: "FileProtectOutlined"
+          }
+        ]
+      },
+      {
+        groupName: "Analytics",
+        groupName_ua: "Аналітика",
+        items: [
+          {
+            type: ItemType.REPORT,
+            code: "profitAndLoss",
+            name: "P&L",
+            name_ua: "Звіт про прибутки та збитки",
+            icon: "BarChartOutlined"
+          },
+          {
+            type: ItemType.REPORT,
+            code: "cashFlow",
+            name: "Cash Flow",
+            name_ua: "Звіт про рух грошових коштів",
+            icon: "LineChartOutlined"
+          },
+          {
+            type: ItemType.REPORT,
+            code: "balanceSheet",
+            name: "Balance Sheet",
+            name_ua: "Баланс",
+            icon: "PieChartOutlined"
           }
         ]
       }
@@ -119,7 +227,7 @@ const sections = [
     name_ua: "Сервіс",
     showInSidebar: false,
     showInMenu: true,
-    icon: "SettingOutlined", // ❗
+    icon: "SettingOutlined",
     groups: [
       {
         groupName: "Processes",
@@ -130,14 +238,14 @@ const sections = [
             code: "deleteMarkedObjects",
             name: "Delete Marked Objects",
             name_ua: "Видалення помічених об'єктів",
-            icon: "DeleteOutlined" // ❗
+            icon: "DeleteOutlined"
           },
           {
             type: ItemType.CUSTOM,
             code: "exchangeBAF",
             name: "Exchange with BAF",
             name_ua: "Обмін з BAF",
-            icon: "SwapOutlined" // ❗
+            icon: "SwapOutlined"
           }
         ]
       },
@@ -150,7 +258,57 @@ const sections = [
             code: "applicationSettings",
             name: "Application Settings",
             name_ua: "Налаштування застосунку",
-            icon: "SettingOutlined" // ❗
+            icon: "SettingOutlined"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    code: "registers",
+    name: "Registers",
+    name_ua: "Реєстри",
+    showInSidebar: true,
+    showInMenu: true,
+    icon: "DatabaseOutlined",
+    groups: [
+      {
+        groupName: "Ledgers",
+        groupName_ua: "Леджери",
+        items: [
+          {
+            type: ItemType.LEDGER,
+            code: "cashLedger",
+            name: "Cash Ledger",
+            name_ua: "Грошовий леджер",
+            icon: "WalletOutlined"
+          },
+          {
+            type: ItemType.LEDGER,
+            code: "inventoryLedger",
+            name: "Inventory Ledger",
+            name_ua: "Леджер запасів",
+            icon: "DropboxOutlined"
+          }
+        ]
+      },
+      {
+        groupName: "Journals",
+        groupName_ua: "Журнали",
+        items: [
+          {
+            type: ItemType.JOURNAL,
+            code: "cashJournal",
+            name: "Cash Journal",
+            name_ua: "Грошовий журнал",
+            icon: "WalletOutlined"
+          },
+          {
+            type: ItemType.JOURNAL,
+            code: "inventoryJournal",
+            name: "Inventory Journal",
+            name_ua: "Журнал товарів",
+            icon: "DropboxOutlined"
           }
         ]
       }

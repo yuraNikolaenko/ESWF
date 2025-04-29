@@ -1,0 +1,27 @@
+.masterdata-sheet {
+  display: flex;
+  flex-direction: column; /* Заголовок и таблица располагаются вертикально */
+  height: 100%; /* Контейнер занимает всю доступную высоту */
+  overflow: hidden; /* Убираем прокрутку самого контейнера */
+}
+
+.masterdata-table {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 120px); /* Ограничение высоты таблицы */
+  overflow-y: auto;
+}
+
+.masterdata-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Фиксированная ширина колонок */
+}
+
+.masterdata-table tbody {
+  display: block;
+  max-height: calc(100vh - 160px); /* Ограничение высоты тела таблицы */
+  overflow-y: auto;
+  width: 100%;
+}
+
