@@ -9,7 +9,7 @@ import { iconMapper } from "../../utils/iconMapper";
 const Sidebar = () => {
   const { addTab } = useTabs();
   const { language } = useLanguage();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true); // Панель свернута по умолчанию
 
   const handleSectionClick = (section) => {
     addTab({

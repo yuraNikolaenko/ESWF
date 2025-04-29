@@ -71,7 +71,7 @@ const Header = () => {
     <header className="header">
       {/* Ліва частина: Лого та кнопка меню */}
       <div className="left-block">
-        <div className="logo">LOGO</div>
+        <div className="logo">ESWF</div>
         <button className="menu-button" onClick={toggleMenu}>
           ☰
         </button>

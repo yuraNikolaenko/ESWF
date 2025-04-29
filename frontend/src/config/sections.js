@@ -159,6 +159,14 @@ const sections = [
             name_ua: "Організації",
             hierarchy: false,
             icon: "ApartmentOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "contracts",
+            name: "Contracts",
+            name_ua: "Контракти",
+            hierarchy: false,
+            icon: "FileTextOutlined"
           }
         ]
       },

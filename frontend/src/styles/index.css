@@ -6,7 +6,7 @@ body {
   background-color: var(--background-color);
   color: var(--text-color);
   
-  font-size: 18px; /* ➡️ Тут ставимо базовий розмір для ВСЬОГО сайту */
+  font-size: 22px; /* ➡️ Тут ставимо базовий розмір для ВСЬОГО сайту */
 }
 
 .header {
@@ -22,6 +22,6 @@ body {
 
 .content-area {
   flex: 1;
-  padding: 16px;
+  /* padding: 8px; */
   overflow-y: auto;
 }

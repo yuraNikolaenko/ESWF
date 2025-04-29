@@ -1,0 +1,104 @@
+.masterdata-sheet {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    /* border-radius: 10px; */
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 115px); /* Учитываем высоту header (40px) и footer (40px) */
+    box-sizing: border-box;
+    overflow: hidden; /* Убираем прокрутку для всего контейнера */
+  }
+  
+  .masterdata-sheet h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: #cfcfcf;
+    border-bottom: 1px solid #333;
+    /* padding-bottom: 8px; */
+  }
+  
+  .masterdata-table-container {
+    flex: 1; /* Контейнер занимает оставшееся пространство */
+    overflow: auto; /* Включаем прокрутку для таблицы */
+  }
+  
+  /* Стили для полос прокрутки */
+  .masterdata-table-container::-webkit-scrollbar {
+    width: 8px; /* Ширина вертикальной полосы прокрутки */
+    height: 8px; /* Высота горизонтальной полосы прокрутки */
+  }
+  
+  .masterdata-table-container::-webkit-scrollbar-thumb {
+    background-color: #333; /* Цвет полосы прокрутки */
+    border-radius: 4px; /* Скругление полосы прокрутки */
+  }
+  
+  .masterdata-table-container::-webkit-scrollbar-track {
+    background-color: #1f1f1f; /* Цвет фона полосы прокрутки */
+  }
+  
+  .masterdata-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); */
+  }
+  
+  .masterdata-table thead {
+    background-color: #333;
+    position: sticky; /* Фиксируем заголовок таблицы */
+    top: 0;
+    z-index: 1;
+  }
+  
+  .masterdata-table th,
+  .masterdata-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    white-space: nowrap; /* Убираем перенос текста */
+  }
+  
+  /* Уменьшаем ширину колонок isfolder и ismark */
+  .masterdata-table th.isfolder,
+  .masterdata-table td.isfolder,
+  .masterdata-table th.ismark,
+  .masterdata-table td.ismark {
+    width: 5px; /* Устанавливаем фиксированную ширину */
+    text-align: center; /* Центрируем содержимое */
+  }
+  
+  .masterdata-table th {
+    color: #e0e0e0; /* Цвет текста заголовков таблицы */
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: capitalize;
+  }
+  
+  .masterdata-table tr:hover {
+    background-color: #3c3c3c;
+  }
+  
+  .masterdata-table td {
+    color: #e0e0e0; /* Цвет текста строк таблицы */
+    font-size: 13px;
+  }
+  
+  @media (max-width: 768px) {
+    .masterdata-sheet {
+      padding: 10px;
+    }
+  
+    .masterdata-table th,
+    .masterdata-table td {
+      padding: 6px 8px;
+      font-size: 12px;
+    }
+  }
+  
+  .marked-row {
+    text-decoration: line-through;
+    color: #888;
+  }
