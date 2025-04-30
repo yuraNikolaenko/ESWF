@@ -25,8 +25,10 @@ const MasterdataSheet = ({ title, originalItem }) => {
       setLoading(false);
       return;
     }
-    console.log("MasterdataSheet called with:", originalItem);
-    const endpoint = `http://127.0.0.1:8000/api/${originalItem.code}/`;
+    // console.log("MasterdataSheet called with:", originalItem);
+    
+    const BASE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+    const endpoint = `${BASE_API_URL}/${originalItem.code}/`;
 
     fetch(endpoint)
       .then((response) => {
