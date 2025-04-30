@@ -25,10 +25,17 @@ const MasterdataSheet = ({ title, originalItem }) => {
       setLoading(false);
       return;
     }
-    // console.log("MasterdataSheet called with:", originalItem);
-    
-    const BASE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000/api";
+    // Визначаємо базовий API URL
+    let BASE_API_URL = import.meta.env.VITE_API_URL;
+
+    // Якщо розробка локальна — підставляємо локальний API
+    if (import.meta.env.DEV && import.meta.env.VITE_API_URL_LOCAL) {
+      BASE_API_URL = import.meta.env.VITE_API_URL_LOCAL;
+    }
+
+    // Формуємо повний endpoint
     const endpoint = `${BASE_API_URL}/${originalItem.code}/`;
+    console.log("🔗 API endpoint:", endpoint);
 
     fetch(endpoint)
       .then((response) => {
@@ -98,7 +105,9 @@ const MasterdataSheet = ({ title, originalItem }) => {
     }
     if (header === "ismark") {
       return value ? (
-        <CloseOutlined style={{ color: "red", textDecoration: "line-through" }} />
+        <CloseOutlined
+          style={{ color: "red", textDecoration: "line-through" }}
+        />
       ) : (
         <CheckOutlined style={{ color: "green" }} />
       );
@@ -149,7 +158,10 @@ const MasterdataSheet = ({ title, originalItem }) => {
                 <th
                   key={header}
                   style={{
-                    width: header === "isfolder" || header === "ismark" ? "50px" : "auto", // Уменьшаем ширину колонок
+                    width:
+                      header === "isfolder" || header === "ismark"
+                        ? "50px"
+                        : "auto", // Уменьшаем ширину колонок
                   }}
                 >
                   {renderHeader(header)}
@@ -168,7 +180,10 @@ const MasterdataSheet = ({ title, originalItem }) => {
                   <td
                     key={header}
                     style={{
-                      width: header === "isfolder" || header === "ismark" ? "50px" : "auto", // Уменьшаем ширину колонок
+                      width:
+                        header === "isfolder" || header === "ismark"
+                          ? "50px"
+                          : "auto", // Уменьшаем ширину колонок
                     }}
                   >
                     {renderCell(header, row[header])}

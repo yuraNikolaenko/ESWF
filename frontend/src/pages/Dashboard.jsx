@@ -10,13 +10,16 @@ const Dashboard = () => {
     const fetchCounts = async () => {
       try {
         // Запрос к API для водителей
-        const driversResponse = await fetch('http://127.0.0.1:8000/api/drivers'); // Замените на ваш реальный endpoint
+        const BASE_API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+        const endpoint = `${BASE_API_URL}/drivers/`;
+        const driversResponse = await fetch(endpoint); // Замените на ваш реальный endpoint
         const driversData = await driversResponse.json();
         setDriversCount(driversData.length); // Подсчет количества записей
 
         // Запрос к API для машин
-        const vehiclesResponse = await fetch('http://127.0.0.1:8000/api/vehicles'); // Замените на ваш реальный endpoint
-        const vehiclesData = await vehiclesResponse.json();
+/*         const vehiclesResponse = await fetch('http://127.0.0.1:8000/api/vehicles'); // Замените на ваш реальный endpoint
+        const vehiclesData = await vehiclesResponse.json(); */
+        const vehiclesData = 0;
         setVehiclesCount(vehiclesData.length); // Подсчет количества записей
       } catch (error) {
         console.error('Error fetching data:', error);
