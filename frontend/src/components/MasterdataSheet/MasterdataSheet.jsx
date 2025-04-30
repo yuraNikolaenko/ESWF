@@ -33,7 +33,7 @@ const MasterdataSheet = ({ title, originalItem }) => {
       BASE_API_URL = import.meta.env.VITE_API_URL_LOCAL;
     }
 
-    // Формуємо повний endpoint 5
+    // Формуємо повний endpoint 5іі
     const endpoint = `${BASE_API_URL}/${originalItem.code}/`;
     console.log("🔗 API endpoint:", endpoint);
 

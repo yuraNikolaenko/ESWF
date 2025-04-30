@@ -125,6 +125,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",   # твій React фронтенд на Vite
-]
+CORS_ALLOW_ALL_ORIGINS = True
