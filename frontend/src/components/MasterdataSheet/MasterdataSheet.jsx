@@ -63,14 +63,13 @@ const MasterdataSheet = ({ title, originalItem }) => {
   }, [originalItem]);
 
   const handleRowDoubleClick = (row) => {
-    const id = `${originalItem.code}-${row.id || row.uuid}`;
+    const id = `edit-${originalItem.code}-${row.id}`;
     addTab({
       id,
       type: "directoryItem",
       itemType: originalItem.type,
       title: row.name || `${originalItem.name} item`,
-      originalItem: originalItem,
-      data: row,
+      originalItem: { ...originalItem, data: row }, // 🔧 додаємо дані в originalItem
     });
   };
 

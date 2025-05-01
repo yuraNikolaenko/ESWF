@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import (
     DriverListCreateAPIView,
     DriverRetrieveUpdateDestroyAPIView,
-    VehicleListCreateAPIView,                 # <-- додати
-    VehicleRetrieveUpdateDestroyAPIView       # <-- додати
+    VehicleListCreateAPIView,  # <-- додати
+    VehicleRetrieveUpdateDestroyAPIView,
+    ModelMetaView  # <-- додати
 )
 
 urlpatterns = [
@@ -19,4 +20,7 @@ urlpatterns = [
     path('vehicles/<int:pk>/',
          VehicleRetrieveUpdateDestroyAPIView.as_view(),
          name='vehicle_detail'),
+    re_path(r"^(?P<model_name>\w+)/meta/$",
+            ModelMetaView.as_view(),
+            name="model-meta"),
 ]
