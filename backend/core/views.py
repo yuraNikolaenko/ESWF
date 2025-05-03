@@ -11,6 +11,8 @@ import openai
 from datetime import datetime, date
 from django.conf import settings
 from .semantic_parser import parse_query
+from django.http import HttpResponse
+
 
 openai.api_key = os.getenv("OPENAI_API_KEY") or getattr(settings, "OPENAI_API_KEY", None)
 
@@ -75,6 +77,30 @@ class VehicleRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
 class DriverViewSet(viewsets.ModelViewSet):
     queryset = Driver.objects.all()
     serializer_class = DriverSerializer
+
+from .models import Country, LocationPoint, TransportHub, DeliveryPoint
+from .serializers import CountrySerializer, LocationPointSerializer, TransportHubSerializer, DeliveryPointSerializer
+
+# --- API для Country ---
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
+# --- API для LocationPoint ---
+class LocationPointViewSet(viewsets.ModelViewSet):
+    queryset = LocationPoint.objects.all()
+    serializer_class = LocationPointSerializer
+
+# --- API для TransportHub ---
+class TransportHubViewSet(viewsets.ModelViewSet):
+    queryset = TransportHub.objects.all()
+    serializer_class = TransportHubSerializer
+
+# --- API для DeliveryPoint ---
+class DeliveryPointViewSet(viewsets.ModelViewSet):
+    queryset = DeliveryPoint.objects.all()
+    serializer_class = DeliveryPointSerializer
+
 
 # --- Meta API ---
 class ModelMetaView(APIView):
@@ -184,3 +210,21 @@ def chat_with_gpt(request):
         print("GPT: ВИПАЛА ПОМИЛКА 🔥")
         traceback.print_exc()
         return Response({"error": str(e)}, status=500)
+
+from django.http import HttpResponse
+
+def root_info(request):
+    return HttpResponse("""
+        <h2>👋 Вітаємо на сервері ESWF API</h2>
+        <p>Це бекенд-сервер. Перейдіть до:</p>
+        <ul>
+            <li><a href="/admin/">🛠 Адмін-панель</a></li>
+            <li><a href="/api/">📚 REST API (усі ендпоінти)</a></li>
+        </ul>
+        <p>Найчастіше використовувані ендпоінти:</p>
+        <ul>
+            <li><a href="/api/drivers/">👤 Водії</a></li>
+            <li><a href="/api/vehicles/">🚗 Автомобілі</a></li>
+            <li><a href="/api/countries/">🌍 Країни</a></li>
+        </ul>
+    """)

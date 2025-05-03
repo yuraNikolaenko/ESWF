@@ -7,6 +7,11 @@ from .views import (
     ModelMetaView  # <-- додати
 )
 from .views import chat_with_gpt
+from .views import (
+    CountryViewSet, LocationPointViewSet,
+    TransportHubViewSet, DeliveryPointViewSet
+)
+from core.views import root_info
 
 urlpatterns = [
     path('drivers/',
@@ -25,4 +30,16 @@ urlpatterns = [
             ModelMetaView.as_view(),
             name="model-meta"),
     path('chat/', chat_with_gpt),
+       path('countries/', CountryViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('countries/<int:pk>/', CountryViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+
+    path('location-points/', LocationPointViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('location-points/<int:pk>/', LocationPointViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+
+    path('transport-hubs/', TransportHubViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('transport-hubs/<int:pk>/', TransportHubViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+
+    path('delivery-points/', DeliveryPointViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path('delivery-points/<int:pk>/', DeliveryPointViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+    path('', root_info),  # <- головна
 ]

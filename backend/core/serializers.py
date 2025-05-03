@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from .models import Driver, Vehicle
-
+from .models import Driver, Vehicle, Country, LocationPoint, TransportHub, DeliveryPoint
 
 class DriverSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +27,25 @@ class VehicleSerializer(serializers.ModelSerializer):
             'name', 'brand', 'model', 'year',
             'vin', 'license_plate', 'photo', 'created_at'
         ]
+
+# ... existing serializers ...
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+class LocationPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LocationPoint
+        fields = '__all__'
+
+class TransportHubSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TransportHub
+        fields = '__all__'
+
+class DeliveryPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryPoint
+        fields = '__all__'

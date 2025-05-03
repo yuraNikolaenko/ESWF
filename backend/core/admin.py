@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Driver
 from django.utils.html import format_html
+from .models import Country
 
 @admin.register(Driver)
 class DriverAdmin(admin.ModelAdmin):
@@ -26,3 +27,9 @@ class DriverAdmin(admin.ModelAdmin):
         return "-"
     show_photo.short_description = "Фото"
 
+
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'name_local', 'alpha2_code']
+    search_fields = ['name', 'name_local', 'alpha2_code', 'alpha3_code', 'numeric_code']
+
+admin.site.register(Country, CountryAdmin)

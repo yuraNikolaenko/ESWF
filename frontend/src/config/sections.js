@@ -43,9 +43,17 @@ const sections = [
           },
           {
             type: ItemType.MASTERDATA,
-            code: "location_point",
-            name: "Location point",
+            code: "location-points",
+            name: "locatlocation-points",
             name_ua: "Пункти призначення",
+            hierarchy: false,
+            icon: "FlagOutlined"
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "countries",
+            name: "Countries",
+            name_ua: "Краіни",
             hierarchy: false,
             icon: "FlagOutlined"
           }
