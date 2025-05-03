@@ -7,4 +7,17 @@ body.theme-light {
   --tab-background: #c6e3d2; /* Світлий фон вкладки */
   --tab-active-background: #ffffff; /* Активна вкладка біла */
   --tab-active-text: #2196F3; /* Синій текст активної вкладки */
-}
+  --chat-bg: #78be93;
+  --chat-text: #031d10;
+  --chat-border: #d0d0d0;
+  --chat-header-bg: #89cca3;
+  --chat-header-text: #000000;
+  --chat-input-bg: #78be93;
+  --chat-button-bg: #78be93;
+  --chat-button-text: #ffffff;
+  --message-bg-user: #78be93;
+  --message-bg-gpt: #78be93;
+  --message-bg: #78be93;
+  --message-text: #000000;
+  }
+  

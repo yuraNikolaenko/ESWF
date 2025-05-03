@@ -35,6 +35,7 @@
     font-weight: bold;
     margin-bottom: 4px;
     color: var(--text-color);
+    background-color: var(--background-color)
 }
 
 .form-group input {
@@ -43,6 +44,7 @@
     border-radius: 4px;
     background-color: #222121;
     color: var(--text-color);
+    background-color: var(--background-color)
 }
 
 .save-button {

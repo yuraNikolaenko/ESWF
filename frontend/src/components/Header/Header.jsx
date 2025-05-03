@@ -14,8 +14,9 @@ import {
 } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu } from "antd";
 import { SettingOutlined, LogoutOutlined } from "@ant-design/icons";
+import { MessageOutlined } from "@ant-design/icons";
 
-const Header = () => {
+const Header = ({ onToggleChat } ) => {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
   const { addTab } = useTabs();
@@ -54,18 +55,29 @@ const Header = () => {
 
   const userMenu = (
     <Menu className="user-dropdown-menu">
-      <Menu.Item key="profile" icon={<UserOutlined />} className="user-dropdown-item">
+      <Menu.Item
+        key="profile"
+        icon={<UserOutlined />}
+        className="user-dropdown-item"
+      >
         Profile
       </Menu.Item>
-      <Menu.Item key="settings" icon={<SettingOutlined />} className="user-dropdown-item">
+      <Menu.Item
+        key="settings"
+        icon={<SettingOutlined />}
+        className="user-dropdown-item"
+      >
         Settings
       </Menu.Item>
-      <Menu.Item key="logout" icon={<LogoutOutlined />} className="user-dropdown-item">
+      <Menu.Item
+        key="logout"
+        icon={<LogoutOutlined />}
+        className="user-dropdown-item"
+      >
         Logout
       </Menu.Item>
     </Menu>
   );
-  
 
   return (
     <header className="header">
@@ -134,6 +146,11 @@ const Header = () => {
 
       {/* Права частина: Теми, Мова, Користувач */}
       <div className="header-controls">
+        {onToggleChat && (
+          <button className="theme-switcher-btn" onClick={onToggleChat}>
+            <MessageOutlined />
+          </button>
+        )}
         <button className="theme-switcher-btn" onClick={toggleTheme}>
           {theme === "light" ? <MoonOutlined /> : <SunOutlined />}
         </button>

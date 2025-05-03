@@ -6,6 +6,7 @@ from .views import (
     VehicleRetrieveUpdateDestroyAPIView,
     ModelMetaView  # <-- додати
 )
+from .views import chat_with_gpt
 
 urlpatterns = [
     path('drivers/',
@@ -23,4 +24,5 @@ urlpatterns = [
     re_path(r"^(?P<model_name>\w+)/meta/$",
             ModelMetaView.as_view(),
             name="model-meta"),
+    path('chat/', chat_with_gpt),
 ]

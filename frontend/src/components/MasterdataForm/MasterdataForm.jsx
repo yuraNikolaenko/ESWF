@@ -32,22 +32,18 @@ const MasterdataForm = ({ originalItem, onSuccess }) => {
   useEffect(() => {
     const fetchMetadataAndData = async () => {
       try {
-        console.log("📤 Запит на мета:", metaUrl);
         const metaRes = await axios.get(metaUrl);
-        console.log("✅ Metadata loaded:", metaRes.data);
 
         const fields = metaRes.data.filter(
           (f) =>
             !["id", "uuid", "isfolder", "ismark", "parent"].includes(f.name)
         );
         setMetadata(fields);
-        console.log("✅ Відфільтровані поля:", fields);
 
         if (id) {
           console.log("📤 Запит на дані:", dataUrl);
           const dataRes = await axios.get(dataUrl);
           const initialValues = { ...dataRes.data };
-          console.log("📦 Завантажено дані елемента:", dataRes.data);
 
           fields.forEach((field) => {
             if (field.type === "date" && initialValues[field.name]) {
@@ -56,7 +52,6 @@ const MasterdataForm = ({ originalItem, onSuccess }) => {
           });
 
           form.setFieldsValue(initialValues);
-          console.log("✅ Form values set:", initialValues);
         }
       } catch (error) {
         console.error("❌ Помилка у fetchMetadataAndData:", error);

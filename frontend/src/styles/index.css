@@ -17,11 +17,19 @@ body {
 .main-area {
   display: flex;
   flex: 1;
-  overflow: hidden; /* дуже важливо! */
+  /* overflow: hidden; дуже важливо! */
 }
 
 .content-area {
   flex: 1;
   /* padding: 8px; */
   overflow-y: auto;
+}
+
+.chat-panel {
+  width: 300px;
+  background-color: #f0f2f5;
+  border-left: 1px solid #d9d9d9;
+  display: flex;
+  flex-direction: column;
 }
