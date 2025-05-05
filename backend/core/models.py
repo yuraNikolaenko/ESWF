@@ -131,3 +131,23 @@ class DeliveryPoint(models.Model):
 
     def __str__(self):
         return self.address 
+
+class Route(models.Model):
+    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
+    isfolder = models.BooleanField(default=False)
+    ismark = models.BooleanField(default=False)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+
+    name = models.CharField(max_length=255, help_text="Назва маршруту (наприклад, 'Київ - Львів')")
+    code = models.CharField(max_length=50, unique=True, null=True, blank=True, help_text="Унікальний код маршруту")
+    departure_point = models.ForeignKey('LocationPoint', on_delete=models.CASCADE, related_name='routes_from')
+    return_point = models.ForeignKey('LocationPoint', on_delete=models.CASCADE, related_name='routes_to')
+    
+    distance_km = models.DecimalField(max_digits=6, decimal_places=1, null=True, blank=True, help_text="Відстань у кілометрах")
+    estimated_time_min = models.IntegerField(null=True, blank=True, help_text="Орієнтовний час у хвилинах")
+    comment = models.CharField(max_length=255, default='', blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

@@ -19,5 +19,9 @@ body.theme-light {
   --message-bg-gpt: #78be93;
   --message-bg: #78be93;
   --message-text: #000000;
+  --table-background: #ffffff;
+--table-header-background: #e0f3eb;
+--table-hover: #f5faf8;
+--table-border: #d0d0d0;
   }
   

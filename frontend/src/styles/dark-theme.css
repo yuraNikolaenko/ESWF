@@ -20,4 +20,8 @@ body.theme-dark {
     --message-bg-gpt: #2c2c2c;
     --message-bg: #1e1e1e;
     --message-text: #e0e0e0;
+    --table-background: #2b2b2b;
+    --table-header-background: #333333;
+    --table-hover: #3c3c3c;
+    --table-border: #444444;    
     }
