@@ -23,5 +23,7 @@ body.theme-dark {
     --table-background: #2b2b2b;
     --table-header-background: #333333;
     --table-hover: #3c3c3c;
-    --table-border: #444444;    
+    --table-border: #444444;  
+    --scroll-track-color: #1e1e1e;
+    --scroll-thumb-color: #555;
     }
