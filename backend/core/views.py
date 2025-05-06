@@ -12,6 +12,8 @@ from datetime import datetime, date
 from django.conf import settings
 from .semantic_parser import parse_query
 from django.http import HttpResponse
+from django.db.models import CharField, IntegerField, BooleanField, DateField, ForeignKey
+
 
 
 openai.api_key = os.getenv("OPENAI_API_KEY") or getattr(settings, "OPENAI_API_KEY", None)
@@ -104,37 +106,69 @@ class DeliveryPointViewSet(viewsets.ModelViewSet):
 
 # --- Meta API ---
 class ModelMetaView(APIView):
-    def get(self, request, model_name):
-        try:
-            model = apps.get_model("core", model_name.capitalize())
-        except LookupError:
-            return Response({"error": "Model not found"}, status=404)
+    def get(self, request, code):
+        model_map = {
+            "countries": "Country",
+            "vehicles": "Vehicle",
+            "drivers": "Driver",
+            "location-points": "LocationPoint",
+            "transport-hubs": "TransportHub",
+            "delivery-points": "DeliveryPoint"
+        }
 
-        meta = []
-        for field in model._meta.fields:
-            if field.name in ['id', 'uuid', 'isfolder', 'ismark']:
+        model_name = model_map.get(code)
+        if not model_name:
+            return Response({"error": f"No model mapping for '{code}'"}, status=400)
+
+        try:
+            model = apps.get_model("core", model_name)
+        except LookupError:
+            return Response({"error": f"Model '{model_name}' not found."}, status=404)
+
+        meta = model._meta
+        fields = []
+
+        for field in meta.fields:
+            if field.name == "id":
                 continue
 
-            field_type = "char"
-            if field.get_internal_type() == "DateField":
-                field_type = "date"
-            elif field.get_internal_type() in ["BooleanField", "NullBooleanField"]:
+            field_type = "unknown"
+            if isinstance(field, CharField):
+                field_type = "char"
+            elif isinstance(field, IntegerField):
+                field_type = "integer"
+            elif isinstance(field, BooleanField):
                 field_type = "boolean"
-            elif field.choices:
-                field_type = "choice"
+            elif isinstance(field, DateField):
+                field_type = "date"
+            elif isinstance(field, ForeignKey):
+                field_type = "reference"
 
-            field_info = {
+            fields.append({
                 "name": field.name,
+                "title": {
+                    "en": field.verbose_name.title(),
+                    "ua": field.verbose_name
+                },
                 "type": field_type,
                 "required": not field.blank,
-            }
+                **({"ref": field.related_model.__name__.lower()} if field_type == "reference" else {})
+            })
 
-            if field_type == "choice":
-                field_info["choices"] = list(field.choices)
-
-            meta.append(field_info)
-
-        return Response(meta)
+        return Response({
+            "code": code,
+            "title": {
+                "en": model_name,
+                "ua": model_name
+            },
+            "hierarchy": False,
+            "customForms": {
+                "list": False,
+                "item": False,
+                "picker": False
+            },
+            "fields": fields
+        })
 
 # --- Основна GPT точка ---
 @api_view(['POST'])

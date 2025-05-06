@@ -1,0 +1,49 @@
+{
+    "code": "countries",
+    "title": { "en": "Countries", "ua": "Країни" },
+    "hierarchy": false,
+    "customForms": {
+      "list": false,
+      "item": false,
+      "picker": false
+    },
+    "fields": [
+      {
+        "name": "uuid",
+        "type": "uuid",
+        "visible": false
+      },
+      {
+        "name": "ismark",
+        "type": "boolean",
+        "title": { "en": "Deleted", "ua": "Позначено на видалення" }
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "title": { "en": "Name", "ua": "Назва (англ.)" },
+        "required": true
+      },
+      {
+        "name": "name_local",
+        "type": "string",
+        "title": { "en": "Local Name", "ua": "Назва (укр.)" }
+      },
+      {
+        "name": "alpha2_code",
+        "type": "string",
+        "title": { "en": "Alpha-2", "ua": "Код Alpha-2" }
+      },
+      {
+        "name": "alpha3_code",
+        "type": "string",
+        "title": { "en": "Alpha-3", "ua": "Код Alpha-3" }
+      },
+      {
+        "name": "numeric_code",
+        "type": "string",
+        "title": { "en": "Numeric", "ua": "Числовий код" }
+      }
+    ]
+  }
+  

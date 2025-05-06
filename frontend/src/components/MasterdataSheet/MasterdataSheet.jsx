@@ -1,27 +1,78 @@
-// MasterdataSheet.jsx — with custom HTML/JS dropdown menu
+// MasterdataSheet.jsx — metadata‑driven
 
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { Table, Button, Tooltip } from "antd";
-import { LeftOutlined, RightOutlined, MoreOutlined, CloseOutlined } from "@ant-design/icons";
+import { Table, Button } from "antd";
+import {
+  LeftOutlined,
+  RightOutlined,
+  MoreOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 import useTabs from "../../hooks/useTabs";
 import { getBaseApiUrl } from "../../utils/apiConfig";
 import "../../styles/MasterdataSheet.css";
 
 const MasterdataSheet = ({ originalItem }) => {
   const [data, setData] = useState([]);
+  const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20 });
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const { addTab, closeTab } = useTabs();
-
   const tabId = `masterdata-${originalItem.code}`;
-  console.log("[MasterdataSheet] Loaded with originalItem:", originalItem);
-  console.log("[MasterdataSheet] Using tabId:", tabId);
 
+  /* ---------- DATA & META FETCH ---------- */
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const BASE_API_URL = getBaseApiUrl();
+
+    const fetchData = async () => {
+      if (!originalItem?.code) {
+        console.warn("No originalItem.code — skipping fetch");
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        /* META ------------------------------------------------------------- */
+        const metaRes = await fetch(`${BASE_API_URL}/${originalItem.code}/meta/`);
+        if (!metaRes.ok) throw new Error("Failed to fetch metadata");
+        const metaJson = await metaRes.json();
+        setMeta(metaJson);
+
+        /* DATA ------------------------------------------------------------- */
+        const dataRes = await fetch(
+          `${BASE_API_URL}/${originalItem.code}/?page=${pagination.current}&page_size=${pagination.pageSize}`
+        );
+        if (!dataRes.ok) throw new Error("Failed to fetch data");
+        const dataJson = await dataRes.json();
+
+        // універсальна обробка: масив або { results: [...] }
+        const items = Array.isArray(dataJson)
+          ? dataJson
+          : Array.isArray(dataJson?.results)
+          ? dataJson.results
+          : [];
+
+        setData(items);
+      } catch (err) {
+        console.error("Load error:", err);
+        setMeta(null);
+        setData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [originalItem, pagination]);
+
+  /* ---------- DROPDOWN CLOSE ON OUTSIDE CLICK ---------- */
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuOpen(false);
       }
     };
@@ -29,35 +80,10 @@ const MasterdataSheet = ({ originalItem }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (!originalItem?.code) {
-      setLoading(false);
-      return;
-    }
-
-    const BASE_API_URL = getBaseApiUrl();
-    const endpoint = `${BASE_API_URL}/${originalItem.code}/`;
-
-    fetch(endpoint)
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((resData) => {
-        const results = Array.isArray(resData?.results) ? resData.results : (Array.isArray(resData) ? resData : []);
-        setData(results);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
-        setLoading(false);
-      });
-  }, [originalItem]);
-
+  /* ---------- DOUBLE‑CLICK ROW OPENS EDIT TAB ---------- */
   const handleRowDoubleClick = (record) => {
-    const id = `edit-${originalItem.code}-${record.id}`;
     addTab({
-      id,
+      id: `edit-${originalItem.code}-${record.id}`,
       type: "directoryItem",
       itemType: originalItem.type,
       title: record.name || `${originalItem.name} item`,
@@ -65,67 +91,84 @@ const MasterdataSheet = ({ originalItem }) => {
     });
   };
 
+  /* ---------- TABLE COLUMNS FROM META ---------- */
   const columns = useMemo(() => {
-    const sample = data[0];
-    if (!sample) return [];
-    return Object.keys(sample)
-      .filter((key) => key !== "uuid")
-      .map((key) => {
+    if (!meta?.fields) return [];
+
+    return meta.fields
+      .filter(
+        (f) => f.visible !== false && f.name !== "uid" && f.name !== "parent"
+      )
+      .map((f) => {
+        const key = f.name;
+        const title = f.title?.ua || f.title?.en || key;
+
         if (key === "ismark" || key === "isfolder") {
           return {
             title: "",
             dataIndex: key,
             key,
-            render: (value) => (value ? <span style={{ display: 'flex', justifyContent: 'center' }}><span className="anticon">✔️</span></span> : null)
+            render: (val) =>
+              val ? (
+                <span style={{ display: "flex", justifyContent: "center" }}>
+                  ✔️
+                </span>
+              ) : null,
           };
         }
-        return {
-          title: key,
-          dataIndex: key,
-          key
-        };
+
+        if (f.type === "reference") {
+          return {
+            title,
+            key,
+            render: (_, rec) => {
+              const ref = rec[key.replace("_id", "")];
+              return ref?.title || ref?.name || `[id: ${rec[key]}]`;
+            },
+          };
+        }
+
+        return { title, dataIndex: key, key, ellipsis: true };
       });
-  }, [data]);
+  }, [meta]);
 
-  if (loading) return <div className="masterdata-sheet" style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>Loading...</div>;
-  if (!data.length) return <div className="masterdata-sheet" style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>No data</div>;
+  /* ---------- EARLY RETURNS ---------- */
+  if (loading)   return <div className="masterdata-sheet">Loading…</div>;
+  if (!meta)     return <div className="masterdata-sheet">Metadata error</div>;
+  if (!data.length)
+    return <div className="masterdata-sheet">No data</div>;
 
-  const headerTitle = `${originalItem.name} (${originalItem.type})`;
-
+  /* ---------- RENDER ---------- */
   return (
     <div className="masterdata-sheet">
-      {/* Header */}
+      {/* Header bar */}
       <div className="header-bar">
         <div className="left-controls">
           <Button icon={<LeftOutlined />} type="text" />
           <Button icon={<RightOutlined />} type="text" />
-          <span className="sheet-title">{headerTitle}</span>
+          <span className="sheet-title">{originalItem.name}</span>
         </div>
         <div className="right-controls">
           <Button
             icon={<CloseOutlined />}
-            onClick={() => {
-              console.log("[MasterdataSheet] Close button clicked. tabId =", tabId);
-              if (typeof closeTab === "function") {
-                console.log("[MasterdataSheet] closeTab is a function, calling it...");
-                closeTab(tabId);
-              } else {
-                console.warn("[MasterdataSheet] closeTab is NOT a function!");
-              }
-            }}
+            onClick={() => closeTab?.(tabId)}
             type="text"
           />
         </div>
       </div>
 
-      {/* Action Menu */}
+      {/* Action bar */}
       <div className="action-bar">
         <div className="left-buttons">
           <Button type="primary">Save</Button>
           <Button>Save and Close</Button>
         </div>
         <div className="right-dropdown" ref={menuRef}>
-          <Button icon={<MoreOutlined />} type="text" onClick={() => setMenuOpen(!menuOpen)} />
+          <Button
+            icon={<MoreOutlined />}
+            type="text"
+            onClick={() => setMenuOpen(!menuOpen)}
+          />
           {menuOpen && (
             <div className="custom-dropdown-menu">
               <div className="menu-item">Edit</div>
@@ -136,17 +179,22 @@ const MasterdataSheet = ({ originalItem }) => {
         </div>
       </div>
 
-      {/* Table content */}
-      <div className="masterdata-table-container" style={{ flex: 1, overflow: 'auto' }}>
+      {/* Table */}
+      <div
+        className="masterdata-table-container"
+        style={{ flex: 1, overflow: "auto" }}
+      >
         <Table
           columns={columns}
           dataSource={data}
-          rowKey={(record) => record.id || `${record.key}`}
+          rowKey={(r) => r.id}
           pagination={pagination}
-          scroll={{ y: 'calc(100vh - 295px)', x: 'max-content' }}
-          onChange={(p) => setPagination(p)}
-          onRow={(record) => ({
-            onDoubleClick: () => handleRowDoubleClick(record),
+          scroll={{ y: "calc(100vh - 295px)", x: "max-content" }}
+          onChange={(p) =>
+            setPagination({ current: p.current, pageSize: p.pageSize })
+          }
+          onRow={(rec) => ({
+            onDoubleClick: () => handleRowDoubleClick(rec),
           })}
         />
       </div>
