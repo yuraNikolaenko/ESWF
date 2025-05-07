@@ -40,15 +40,50 @@
   gap: 8px;
 }
 
+/* Custom search input styling */
+.masterdata-sheet .themed-search .ant-input-affix-wrapper {
+  background-color: var(--table-background) !important;
+  color: var(--text-color) !important;
+  border: 1px solid var(--table-border) !important;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 0 8px;
+  transition: box-shadow 0.2s ease;
+}
+
+.masterdata-sheet .themed-search .ant-input-affix-wrapper:hover,
+.masterdata-sheet .themed-search .ant-input-affix-wrapper:focus-within {
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.masterdata-sheet .themed-search .ant-input {
+  background-color: transparent !important;
+  color: var(--text-color) !important;
+}
+
+.masterdata-sheet .themed-search .ant-input-suffix .anticon-search {
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.masterdata-sheet .themed-search .ant-input-suffix .anticon-close-circle {
+  color: var(--text-color);
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.masterdata-sheet .themed-search .ant-input-suffix .anticon-close-circle:hover {
+  opacity: 0.8;
+}
+
 /* Table area */
 .masterdata-sheet .masterdata-table-container {
   flex: 1;
   overflow: auto;
   padding: 8px 16px;
   background-color: var(--table-background) !important;
-   /* Обмеження висоти — щоб не прокручувався весь додаток */
-   min-height: calc(100vh - 182px);
-   max-height: calc(100vh - 182px);
+  min-height: calc(100vh - 182px);
+  max-height: calc(100vh - 182px);
 }
 
 /* Table header cells */
@@ -110,30 +145,35 @@
   color: var(--on-primary-color) !important;
 }
 
-/* Custom dropdown menu */
 .custom-dropdown-menu {
-  position: absolute;
-  top: 36px;
-  right: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border: 1px solid var(--table-border);
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  min-width: 120px;
-  padding: 4px 0;
+  width: 200px;
+  background-color: var(--table-background);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 6px 0;
+  font-size: 14px;
 }
 
 .custom-dropdown-menu .menu-item {
   padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
 .custom-dropdown-menu .menu-item:hover {
-  background-color: var(--table-hover);
+  background-color: var(--hover-color);
 }
+
+.custom-dropdown-menu .menu-divider {
+  height: 1px;
+  margin: 4px 0;
+  background-color: var(--border-color);
+}
+
 
 /* No text wrap in table cells */
 .masterdata-sheet .ant-table-cell {
@@ -153,11 +193,10 @@
 /* Стилізуємо прокрутку в тілі таблиці */
 .ant-table-body {
   overflow-y: auto !important;
-  scrollbar-width: thin; /* для Firefox */
+  scrollbar-width: thin;
   scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
 }
 
-/* WebKit – Chrome, Edge, Opera */
 .ant-table-body::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -172,7 +211,6 @@
   border-radius: 4px;
 }
 
-/* Стилізація dropdown кнопки пагінації під темну тему */
 .theme-dark .ant-pagination-options {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -192,5 +230,11 @@
 
 tr.active-row > td {
   background-color: #161718 !important;
+  transition: background-color 0.2s ease;
+}
+
+/* Активний рядок таблиці */
+.masterdata-sheet .ant-table-tbody > tr.active-row > td {
+  background-color: var(--active-row-color) !important;
   transition: background-color 0.2s ease;
 }

@@ -25,5 +25,7 @@ body.theme-light {
   --table-border: #d0d0d0;
   --scroll-track: #eee;
   --scroll-thumb: #aaa;
+  --error-color: #ff6b6b;
+  --active-row-color: rgba(33, 150, 243, 0.12);
   }
   

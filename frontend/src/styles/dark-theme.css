@@ -26,4 +26,6 @@ body.theme-dark {
     --table-border: #444444;  
     --scroll-track-color: #1e1e1e;
     --scroll-thumb-color: #555;
+    --error-color: #ff6b6b;
+    --active-row-color: #423e3e;
     }
