@@ -11,7 +11,6 @@
   flex-shrink: 0;
 }
 
-/* Лівий блок: Лого + Меню */
 .left-block {
   display: flex;
   align-items: center;
@@ -31,7 +30,6 @@
   color: var(--text-color);
 }
 
-/* Багаторівневе меню */
 .dropdown-multimenu {
   position: absolute;
   top: 40px;
@@ -39,15 +37,20 @@
   display: flex;
   background-color: var(--header-background);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: 100;
   padding: 8px;
   gap: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.2s ease-out;
   overflow: hidden;
-  transition: width 0.3s ease; /* Анімація ширини */
 }
 
-/* Одна панель меню */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .menu-panel {
   display: flex;
   flex-direction: column;
@@ -61,7 +64,6 @@
   border-right: none;
 }
 
-/* Елементи меню */
 .dropdown-item {
   padding: 8px 12px;
   border-radius: 4px;
@@ -73,24 +75,22 @@
   background-color: var(--border-color);
 }
 
-/* Права частина: керування */
 .header-controls {
   display: flex;
   align-items: center;
   gap: 1px;
 }
 
-/* Кнопка перемикача теми */
 .theme-switcher-btn {
   background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 4px 8px; /* Трохи компактніше */
+  padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px; /* Відстань між іконкою і текстом */
+  gap: 6px;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
@@ -102,11 +102,6 @@
   outline: none;
 }
 
-.theme-switcher-btn:hover {
-  background-color: var(--border-color);
-}
-
-/* Toast-повідомлення */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -121,7 +116,6 @@
   animation: fadeInOut 3s forwards;
 }
 
-/* Анімація появи і зникнення Toast */
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translateY(20px); }
   10% { opacity: 1; transform: translateY(0); }
@@ -148,14 +142,13 @@
 .user-link:hover {
   text-decoration: underline;
 }
-/* Стилі меню користувача */
-.user-dropdown-menu {
+
+.user-dropdown-menu-container .ant-dropdown-menu {
   background-color: var(--header-background);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  min-width: 180px;
   padding: 8px 0;
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .user-dropdown-item {
@@ -170,16 +163,22 @@
   color: var(--text-color);
 }
 
-/* Для аватарки і імені */
-.user-link {
-  color: var(--text-color);
-  text-decoration: none;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+.small-text {
+  font-size: 13px;
 }
 
-.user-link:hover {
-  text-decoration: underline;
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--text-color);
+  margin: 4px 0;
+  opacity: 0.5;
 }
+
+.dropdown-multimenu:hover {
+  opacity: 1;
+}
+
+.dropdown-multimenu-wrapper {
+  position: relative;
+}
+

@@ -27,5 +27,8 @@ body.theme-light {
   --scroll-thumb: #aaa;
   --error-color: #ff6b6b;
   --active-row-color: rgba(33, 150, 243, 0.12);
+  --toast-bg-color: #2e7d32;      /* default green for info */
+  --toast-text-color: #ffffff;
+  
   }
   
