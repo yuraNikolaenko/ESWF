@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from core.models import Driver
+from fleet.models import Driver
 import random
 from datetime import date, timedelta
 import uuid

@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
-from django.core.management import call_command
 from core.models import Country, LocationPoint
 from pathlib import Path
 import json
 
+
 class Command(BaseCommand):
-    help = 'Завантажує початкові дані: країни, населені пункти, водії, машини'
+    help = 'Завантажує базові довідники: країни, пункти'
 
     def handle(self, *args, **kwargs):
         base_dir = Path("core/fixtures/initial")
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             )
         self.stdout.write(self.style.SUCCESS(f"✅ Імпортовано {len(countries)} країн."))
 
-        # 2. LocationPoint
+        # --- Населені пункти ---
         print("📍 Імпорт населених пунктів...")
         with open(base_dir / "locationpoints.json", encoding="utf-8") as f:
             ukraine = Country.objects.filter(numeric_code="804").first()
@@ -45,16 +45,6 @@ class Command(BaseCommand):
                 )
         print(f"✅ Завантажено {len(data)} пунктів.")
 
-        # --- Імпорт населених пунктів ---
-        self.stdout.write("📍 Модіфікація  населених пунктів...")
+        self.stdout.write("📍 Призначення ієрархії...")
+        from django.core.management import call_command
         call_command("assign_parents")
-
-        # --- Генерація водіїв ---
-        self.stdout.write("👤 Генерація водіїв...")
-        call_command("generate_drivers")
-
-        # --- Генерація машин ---
-        self.stdout.write("🚚 Генерація машин...")
-        call_command("generate_vehicles")
-
-        self.stdout.write(self.style.SUCCESS("🎉 Початкові дані успішно завантажені."))

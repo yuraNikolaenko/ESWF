@@ -4,29 +4,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.apps import apps
 from core.models import (
-    Driver, Vehicle, Country, LocationPoint,
-    TransportHub, DeliveryPoint, Route,
-    OdometerReading, Waybill  # ← Додано
+     Country, LocationPoint,
+    TransportHub, DeliveryPoint, 
+
 )
 from core.serializers import (
-    DriverSerializer, VehicleSerializer, CountrySerializer,
+     CountrySerializer,
     LocationPointSerializer, TransportHubSerializer,
-    DeliveryPointSerializer, RouteSerializer,
-    OdometerReadingSerializer, WaybillSerializer  # ← Додано
+    DeliveryPointSerializer, 
+
 )
 from core.api.field_titles import FIELD_TITLE_MAP
-
-MODEL_MAP = {
-    "drivers": ("core", "Driver", DriverSerializer),
-    "vehicles": ("core", "Vehicle", VehicleSerializer),
-    "countries": ("core", "Country", CountrySerializer),
-    "locationpoints": ("core", "LocationPoint", LocationPointSerializer),
-    "transporthubs": ("core", "TransportHub", TransportHubSerializer),
-    "deliverypoints": ("core", "DeliveryPoint", DeliveryPointSerializer),
-    "routes": ("core", "Route", RouteSerializer),
-    "odometerreadings": ("core", "OdometerReading", OdometerReadingSerializer),
-    "waybills": ("core", "Waybill", WaybillSerializer),  # ← Цей рядок додай
-}
+from core.registry import MODEL_MAP
 
 class MasterdataMeta(APIView):
     def get(self, request, code):

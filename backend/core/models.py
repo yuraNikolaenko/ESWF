@@ -1,53 +1,6 @@
 from django.db import models
 import uuid as uuid_lib
 
-class Driver(models.Model):
-    GENDER_CHOICES = (
-        ('M', 'Чоловік'),
-        ('F', 'Жінка'),
-    )
-
-    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
-    isfolder = models.BooleanField(default=False)
-    ismark = models.BooleanField(default=False)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    
-    name = models.CharField(max_length=255)
-    birth_date = models.DateField(null=True, blank=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True, blank=True)
-    license_number = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=20)
-    email = models.EmailField(blank=True, null=True)
-    ipn = models.CharField(max_length=20, unique=True)
-    address = models.CharField(max_length=255, null=True, blank=True)
-    photo = models.ImageField(upload_to='drivers_photos/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=255, default='', blank=True)
-
-    def __str__(self):
-        return self.name
-
-class Vehicle(models.Model):
-    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
-    isfolder = models.BooleanField(default=False)
-    ismark = models.BooleanField(default=False)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
-    
-    driver = models.ForeignKey('core.Driver', on_delete=models.SET_NULL, null=True, blank=True, related_name='vehicles')
-    
-    name = models.CharField(max_length=255)
-    brand = models.CharField(max_length=255)
-    model = models.CharField(max_length=255)
-    year = models.IntegerField()
-    vin = models.CharField(max_length=100, unique=True)
-    license_plate = models.CharField(max_length=20)
-    photo = models.ImageField(upload_to='vehicles_photos/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=255, default='', blank=True)
-
-    def __str__(self):
-        return f"{self.license_plate} - {self.brand} {self.model}"
-    
 class Country(models.Model):
     uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
     ismark = models.BooleanField(default=False)
@@ -117,6 +70,7 @@ class TransportHub(models.Model):
 
 
 class DeliveryPoint(models.Model):
+    
     uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
     isfolder = models.BooleanField(default=False)
     ismark = models.BooleanField(default=False)
@@ -132,54 +86,46 @@ class DeliveryPoint(models.Model):
     def __str__(self):
         return self.address 
 
-class Route(models.Model):
+
+
+class Item(models.Model):
+    ITEM_TYPES = (
+        ('good', 'Товар'),
+        ('service', 'Послуга'),
+        ('kit', 'Комплект'),
+    )
+
     uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
-    isfolder = models.BooleanField(default=False)
     ismark = models.BooleanField(default=False)
+    isfolder = models.BooleanField(default=False)
     parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
-    name = models.CharField(max_length=255, help_text="Назва маршруту (наприклад, 'Київ - Львів')")
-    code = models.CharField(max_length=50, unique=True, null=True, blank=True, help_text="Унікальний код маршруту")
-    departure_point = models.ForeignKey('LocationPoint', on_delete=models.CASCADE, related_name='routes_from')
-    return_point = models.ForeignKey('LocationPoint', on_delete=models.CASCADE, related_name='routes_to')
-    
-    distance_km = models.DecimalField(max_digits=6, decimal_places=1, null=True, blank=True, help_text="Відстань у кілометрах")
-    estimated_time_min = models.IntegerField(null=True, blank=True, help_text="Орієнтовний час у хвилинах")
-    comment = models.CharField(max_length=255, default='', blank=True)
+    name = models.CharField(max_length=255, verbose_name="Найменування")
+    code = models.CharField(max_length=50, unique=True)
+    type = models.CharField(max_length=10, choices=ITEM_TYPES, default='good')
+    unit = models.CharField(max_length=20, default="шт", verbose_name="Одиниця виміру")
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    comment = models.TextField(blank=True, default="")
 
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Номенклатура"
+        verbose_name_plural = "Номенклатура"
 
     def __str__(self):
         return self.name
+    
+class ItemComponent(models.Model):
+    parent_item = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='components')
+    component = models.ForeignKey('Item', on_delete=models.CASCADE, related_name='used_in_kits')
 
-class Waybill(models.Model):
-    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
-    ismark = models.BooleanField(default=False)
-    posted = models.BooleanField(default=False)
+    quantity = models.DecimalField(max_digits=10, decimal_places=3, default=1.000)
+    comment = models.CharField(max_length=255, blank=True, default="")
 
-    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, related_name='waybills')
-    driver = models.ForeignKey('Driver', on_delete=models.CASCADE, related_name='waybills')
-
-    document_number = models.CharField(max_length=50)
-    date = models.DateField()
-
-    odometer_departure = models.PositiveIntegerField(verbose_name="Показник одометра при виїзді")
-    odometer_return = models.PositiveIntegerField(verbose_name="Показник одометра при поверненні")
-
-    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name = "Комплектуюча позиція"
+        verbose_name_plural = "Комплектуючі позиції"
 
     def __str__(self):
-        return f"Пут. лист {self.document_number} від {self.date}"
-
-
-class OdometerReading(models.Model):
-    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
-
-    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, related_name='odometer_readings')
-    date = models.DateField(verbose_name="Дата показання")
-    odometer = models.PositiveIntegerField(verbose_name="Показання одометра")
-
-    waybill = models.ForeignKey('Waybill', on_delete=models.SET_NULL, null=True, blank=True, related_name='odometer_readings')
-
-    def __str__(self):
-        return f"{self.vehicle} — {self.date} — {self.odometer} км"
+        return f"{self.parent_item.name} → {self.component.name} x {self.quantity}"

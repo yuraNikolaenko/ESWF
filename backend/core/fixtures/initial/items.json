@@ -1,0 +1,87 @@
+[
+  {
+    "model": "core.item",
+    "pk": 1,
+    "fields": {
+      "uuid": "1a1a1a1a-aaaa-aaaa-aaaa-1a1a1a1a1a1a",
+      "ismark": false,
+      "isfolder": false,
+      "parent": null,
+      "name": "Цемент М400",
+      "code": "CEM400",
+      "type": "good",
+      "unit": "т",
+      "price": 2350.00,
+      "comment": "",
+      "created_at": "2025-05-13T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 2,
+    "fields": {
+      "uuid": "2b2b2b2b-bbbb-bbbb-bbbb-2b2b2b2b2b2b",
+      "ismark": false,
+      "isfolder": false,
+      "parent": null,
+      "name": "Доставка по місту",
+      "code": "DLVR-CITY",
+      "type": "service",
+      "unit": "рейс",
+      "price": 500.00,
+      "comment": "Послуга доставки",
+      "created_at": "2025-05-13T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 3,
+    "fields": {
+      "uuid": "3c3c3c3c-cccc-cccc-cccc-3c3c3c3c3c3c",
+      "ismark": false,
+      "isfolder": true,
+      "parent": null,
+      "name": "Будматеріали",
+      "code": "GROUP-BUILD",
+      "type": "good",
+      "unit": "",
+      "price": null,
+      "comment": "Група товарів",
+      "created_at": "2025-05-13T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 4,
+    "fields": {
+      "uuid": "4d4d4d4d-dddd-dddd-dddd-4d4d4d4d4d4d",
+      "ismark": false,
+      "isfolder": false,
+      "parent": 3,
+      "name": "Цегла червона",
+      "code": "BRICK-RED",
+      "type": "good",
+      "unit": "шт",
+      "price": 4.20,
+      "comment": "",
+      "created_at": "2025-05-13T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.item",
+    "pk": 5,
+    "fields": {
+      "uuid": "5e5e5e5e-eeee-eeee-eeee-5e5e5e5e5e5e",
+      "ismark": false,
+      "isfolder": false,
+      "parent": null,
+      "name": "Комплект: Труба + Фітинг",
+      "code": "SET-PIPE",
+      "type": "kit",
+      "unit": "комплект",
+      "price": 150.00,
+      "comment": "Готовий набір",
+      "created_at": "2025-05-13T00:00:00Z"
+    }
+  }
+]

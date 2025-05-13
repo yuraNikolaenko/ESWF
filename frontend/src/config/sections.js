@@ -5,8 +5,8 @@ export const schemaVersion = "1.0.3";
 
 const sections = [
   {
-    code: "transport",
-    name: "Transport",
+    code: "fleet",
+    name: "Fleet",
     name_ua: "Транспорт",
     showInSidebar: true,
     showInMenu: true,
@@ -32,6 +32,13 @@ const sections = [
                 autoload: false,
                 type: "related",
               },
+              {
+                code: "VehicleComponent",
+                name: "VehicleComponent одометра",
+                name_ua: "Комплектация ТЗ",
+                autoload: false,
+                type: "related",
+              },
             ],
           },
           {
@@ -49,6 +56,15 @@ const sections = [
             name_ua: "Маршрути",
             hierarchy: false,
             icon: "EnvironmentOutlined",
+            subtables: [
+              {
+                code: "routeWaypoints",
+                name: "Точки маршруту",
+                name_ua: "Точки маршру",
+                autoload: true,
+                type: "inline",
+              },
+            ],
           },
           {
             type: ItemType.MASTERDATA,
@@ -126,9 +142,9 @@ const sections = [
     ],
   },
   {
-    code: "accounting",
-    name: "Accounting",
-    name_ua: "Бухгалтерія",
+    code: "essentials",
+    name: "Essentials", 
+    name_ua: "Основи",
     showInSidebar: true,
     showInMenu: true,
     icon: "DollarOutlined",
