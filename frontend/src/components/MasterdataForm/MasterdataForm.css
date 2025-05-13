@@ -1,0 +1,150 @@
+.masterdata-form {
+    padding: 12px !important;
+    max-height: calc(100vh - 120px) !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+    font-size: 15px !important;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* Шапка форми */
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--header-background);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 !important;
+  line-height: 1.4;
+}
+
+/* Панель інструментів */
+.form-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--sidebar-background);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.toolbar-left button {
+    margin-right: 8px;
+}
+
+.toolbar-right button {
+    font-size: 20px;
+    padding: 0 10px;
+    height: 32px;
+    line-height: 1;
+}
+
+/* Однорядкові поля */
+.form-field-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+.field-label {
+    font-weight: 500;
+    color: var(--text-color);
+    width: 200px;
+    flex-shrink: 0;
+}
+
+/* Карточки */
+.form-card {
+    background: var(--table-background);
+    border: 1px solid var(--table-border);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+/* Поля вводу */
+.masterdata-form .ant-input,
+.masterdata-form .ant-select-selector,
+.masterdata-form .ant-picker {
+    background-color: var(--table-background) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--table-border) !important;
+}
+
+/* Фокус */
+.masterdata-form .ant-input:focus,
+.masterdata-form .ant-picker-focused,
+.masterdata-form .ant-select-focused .ant-select-selector {
+    border-color: var(--tab-active-text) !important;
+    box-shadow: 0 0 0 2px rgba(92, 157, 237, 0.2) !important;
+}
+
+/* Checkbox */
+.masterdata-form .ant-checkbox-inner {
+    background-color: var(--table-background);
+    border-color: var(--table-border);
+}
+.masterdata-form .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: var(--tab-active-text);
+    border-color: var(--tab-active-text);
+}
+.masterdata-form .ant-checkbox + span {
+    color: var(--text-color);
+    margin-left: 8px;
+}
+
+/* Кнопки */
+.masterdata-form .ant-btn-primary {
+    background-color: var(--tab-active-text);
+    color: var(--tab-active-background);
+    border: none;
+}
+.masterdata-form .ant-btn-primary:hover {
+    background-color: #3d7cd4;
+    color: white;
+}
+
+.masterdata-form .ant-btn:not(.ant-btn-primary) {
+    background-color: var(--tab-background);
+    color: var(--text-color);
+    border: 1px solid var(--table-border);
+}
+.masterdata-form .ant-btn:not(.ant-btn-primary):hover {
+    background-color: var(--table-hover);
+    color: var(--text-color);
+}
+
+/* Dropdown Menu */
+.ant-dropdown-menu {
+    background-color: var(--background-color);
+    border: 1px solid var(--table-border);
+}
+.ant-dropdown-menu-item {
+    color: var(--text-color);
+}
+.ant-dropdown-menu-item:hover {
+    background-color: var(--table-hover);
+    color: var(--text-color);
+}
+
+/* Scrollbar */
+.masterdata-form::-webkit-scrollbar {
+    width: 8px;
+}
+.masterdata-form::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb-color);
+    border-radius: 4px;
+}
+.masterdata-form::-webkit-scrollbar-track {
+    background-color: var(--scroll-track-color);
+}

@@ -1,7 +1,7 @@
-import { ItemType } from './itemTypes';
+import { ItemType } from "./itemTypes";
 
 // Schema version
-export const schemaVersion = '1.0.3';
+export const schemaVersion = "1.0.3";
 
 const sections = [
   {
@@ -23,7 +23,16 @@ const sections = [
             name_ua: "Автомобілі",
             hierarchy: true,
             customForm: true,
-            icon: "CarOutlined"
+            icon: "CarOutlined",
+            subtables: [
+              {
+                code: "odometerReadings",
+                name: "Показання одометра",
+                name_ua: "Показання одометра",
+                autoload: false,
+                type: "related",
+              },
+            ],
           },
           {
             type: ItemType.MASTERDATA,
@@ -31,7 +40,7 @@ const sections = [
             name: "Drivers",
             name_ua: "Водії",
             hierarchy: false,
-            icon: "UserOutlined"
+            icon: "UserOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -39,15 +48,15 @@ const sections = [
             name: "Routes",
             name_ua: "Маршрути",
             hierarchy: false,
-            icon: "EnvironmentOutlined"
+            icon: "EnvironmentOutlined",
           },
           {
             type: ItemType.MASTERDATA,
-            code: "location-points",
-            name: "locatlocation-points",
+            code: "locationpoints",
+            name: "locatlocationpoints",
             name_ua: "Пункти призначення",
             hierarchy: false,
-            icon: "FlagOutlined"
+            icon: "FlagOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -55,9 +64,9 @@ const sections = [
             name: "Countries",
             name_ua: "Краіни",
             hierarchy: false,
-            icon: "FlagOutlined"
-          }
-        ]
+            icon: "FlagOutlined",
+          },
+        ],
       },
       {
         groupName: "Transactions",
@@ -69,7 +78,7 @@ const sections = [
             name: "Waybills",
             name_ua: "Путеві листи",
             customForm: true,
-            icon: "FileTextOutlined"
+            icon: "FileTextOutlined",
           },
           {
             type: ItemType.TRANSACTIONDATA,
@@ -77,9 +86,9 @@ const sections = [
             name: "Maintenance Records",
             name_ua: "Ремонтні відомості",
             customForm: false,
-            icon: "ToolOutlined"
-          }
-        ]
+            icon: "ToolOutlined",
+          },
+        ],
       },
       {
         groupName: "Analytics",
@@ -90,16 +99,16 @@ const sections = [
             code: "fuelMovement",
             name: "Fuel Movement Report",
             name_ua: "Відомість руху пального",
-            icon: "BarChartOutlined"
+            icon: "BarChartOutlined",
           },
           {
             type: ItemType.REPORT,
             code: "transportStatistics",
             name: "Transport Statistics",
             name_ua: "Статистика роботи транспорту",
-            icon: "LineChartOutlined"
-          }
-        ]
+            icon: "LineChartOutlined",
+          },
+        ],
       },
       {
         groupName: "Processes",
@@ -110,11 +119,11 @@ const sections = [
             code: "kanbanBoard",
             name: "Kanban Board",
             name_ua: "Канбан-дошка",
-            icon: "AppstoreOutlined"
-          }
-        ]
-      }
-    ]
+            icon: "AppstoreOutlined",
+          },
+        ],
+      },
+    ],
   },
   {
     code: "accounting",
@@ -134,7 +143,7 @@ const sections = [
             name: "Clients",
             name_ua: "Клієнти",
             hierarchy: false,
-            icon: "TeamOutlined"
+            icon: "TeamOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -142,7 +151,7 @@ const sections = [
             name: "Business Operations",
             name_ua: "Господарські операції",
             hierarchy: false,
-            icon: "AuditOutlined"
+            icon: "AuditOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -150,7 +159,7 @@ const sections = [
             name: "Chart of Accounts",
             name_ua: "План рахунків",
             hierarchy: true,
-            icon: "BookOutlined"
+            icon: "BookOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -158,7 +167,7 @@ const sections = [
             name: "Currencies",
             name_ua: "Валюти",
             hierarchy: false,
-            icon: "GlobalOutlined"
+            icon: "GlobalOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -166,7 +175,7 @@ const sections = [
             name: "Organizations",
             name_ua: "Організації",
             hierarchy: false,
-            icon: "ApartmentOutlined"
+            icon: "ApartmentOutlined",
           },
           {
             type: ItemType.MASTERDATA,
@@ -174,9 +183,26 @@ const sections = [
             name: "Contracts",
             name_ua: "Контракти",
             hierarchy: false,
-            icon: "FileTextOutlined"
-          }
-        ]
+            icon: "FileTextOutlined",
+          },
+          {
+            type: ItemType.MASTERDATA,
+            code: "items",
+            name: "Items",
+            name_ua: "Номенклатура",
+            hierarchy: false,
+            icon: "DropboxOutlined",
+            subtables: [
+              {
+                code: "components",
+                name: "Комплектуючі",
+                name_ua: "Комплектуючі",
+                autoload: true,
+                type: "inline",
+              },
+            ],
+          },
+        ],
       },
       {
         groupName: "Transactions",
@@ -188,7 +214,7 @@ const sections = [
             name: "Invoices",
             name_ua: "Рахунки",
             hierarchy: false,
-            icon: "ProfileOutlined"
+            icon: "ProfileOutlined",
           },
           {
             type: ItemType.TRANSACTIONDATA,
@@ -196,7 +222,7 @@ const sections = [
             name: "Incoming Payments",
             name_ua: "Надходження платежів",
             hierarchy: false,
-            icon: "WalletOutlined"
+            icon: "WalletOutlined",
           },
           {
             type: ItemType.TRANSACTIONDATA,
@@ -204,9 +230,9 @@ const sections = [
             name: "Document Operations",
             name_ua: "Документ операція",
             hierarchy: false,
-            icon: "FileProtectOutlined"
-          }
-        ]
+            icon: "FileProtectOutlined",
+          },
+        ],
       },
       {
         groupName: "Analytics",
@@ -217,25 +243,25 @@ const sections = [
             code: "profitAndLoss",
             name: "P&L",
             name_ua: "Звіт про прибутки та збитки",
-            icon: "BarChartOutlined"
+            icon: "BarChartOutlined",
           },
           {
             type: ItemType.REPORT,
             code: "cashFlow",
             name: "Cash Flow",
             name_ua: "Звіт про рух грошових коштів",
-            icon: "LineChartOutlined"
+            icon: "LineChartOutlined",
           },
           {
             type: ItemType.REPORT,
             code: "balanceSheet",
             name: "Balance Sheet",
             name_ua: "Баланс",
-            icon: "PieChartOutlined"
-          }
-        ]
-      }
-    ]
+            icon: "PieChartOutlined",
+          },
+        ],
+      },
+    ],
   },
   {
     code: "service",
@@ -254,16 +280,16 @@ const sections = [
             code: "deleteMarkedObjects",
             name: "Delete Marked Objects",
             name_ua: "Видалення помічених об'єктів",
-            icon: "DeleteOutlined"
+            icon: "DeleteOutlined",
           },
           {
             type: ItemType.CUSTOM,
             code: "exchangeBAF",
             name: "Exchange with BAF",
             name_ua: "Обмін з BAF",
-            icon: "SwapOutlined"
-          }
-        ]
+            icon: "SwapOutlined",
+          },
+        ],
       },
       {
         groupName: "Settings",
@@ -274,11 +300,11 @@ const sections = [
             code: "applicationSettings",
             name: "Application Settings",
             name_ua: "Налаштування застосунку",
-            icon: "SettingOutlined"
-          }
-        ]
-      }
-    ]
+            icon: "SettingOutlined",
+          },
+        ],
+      },
+    ],
   },
   {
     code: "registers",
@@ -297,16 +323,16 @@ const sections = [
             code: "cashLedger",
             name: "Cash Ledger",
             name_ua: "Грошовий леджер",
-            icon: "WalletOutlined"
+            icon: "WalletOutlined",
           },
           {
             type: ItemType.LEDGER,
             code: "inventoryLedger",
             name: "Inventory Ledger",
             name_ua: "Леджер запасів",
-            icon: "DropboxOutlined"
-          }
-        ]
+            icon: "DropboxOutlined",
+          },
+        ],
       },
       {
         groupName: "Journals",
@@ -317,19 +343,19 @@ const sections = [
             code: "cashJournal",
             name: "Cash Journal",
             name_ua: "Грошовий журнал",
-            icon: "WalletOutlined"
+            icon: "WalletOutlined",
           },
           {
             type: ItemType.JOURNAL,
             code: "inventoryJournal",
             name: "Inventory Journal",
             name_ua: "Журнал товарів",
-            icon: "DropboxOutlined"
-          }
-        ]
-      }
-    ]
-  }
+            icon: "DropboxOutlined",
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default sections;

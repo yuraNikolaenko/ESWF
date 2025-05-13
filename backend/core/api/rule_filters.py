@@ -1,6 +1,6 @@
 import re
 from datetime import datetime, date
-from .models import Vehicle
+from ..models import Vehicle
 
 def apply_rule_filters(user_message: str):
     current_year = datetime.now().year

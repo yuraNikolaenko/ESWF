@@ -151,3 +151,35 @@ class Route(models.Model):
 
     def __str__(self):
         return self.name
+
+class Waybill(models.Model):
+    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
+    ismark = models.BooleanField(default=False)
+    posted = models.BooleanField(default=False)
+
+    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, related_name='waybills')
+    driver = models.ForeignKey('Driver', on_delete=models.CASCADE, related_name='waybills')
+
+    document_number = models.CharField(max_length=50)
+    date = models.DateField()
+
+    odometer_departure = models.PositiveIntegerField(verbose_name="Показник одометра при виїзді")
+    odometer_return = models.PositiveIntegerField(verbose_name="Показник одометра при поверненні")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Пут. лист {self.document_number} від {self.date}"
+
+
+class OdometerReading(models.Model):
+    uuid = models.CharField(max_length=36, default=uuid_lib.uuid4, editable=False, unique=True)
+
+    vehicle = models.ForeignKey('Vehicle', on_delete=models.CASCADE, related_name='odometer_readings')
+    date = models.DateField(verbose_name="Дата показання")
+    odometer = models.PositiveIntegerField(verbose_name="Показання одометра")
+
+    waybill = models.ForeignKey('Waybill', on_delete=models.SET_NULL, null=True, blank=True, related_name='odometer_readings')
+
+    def __str__(self):
+        return f"{self.vehicle} — {self.date} — {self.odometer} км"
