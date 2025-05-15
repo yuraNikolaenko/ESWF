@@ -30,4 +30,15 @@ body.theme-dark {
     --active-row-color: #423e3e !important;
     --toast-bg-color: #444 !important;
     --toast-text-color: #ffffff !important;
+    --button-bg: #4a4a4a !important;
+    --button-text: #ffffff !important;
+    --button-hover-bg: #5a5a5a !important ;
+    --tag-free-bg: #2f4235;
+    --tag-free-text: #a3e5af;
+    --tag-installed-bg: #334d3f;
+    --tag-installed-text: #9ddf89;
+    --tag-paid-bg: #304050;
+    --tag-paid-text: #80d4ff;
+    --tag-activated-bg: #283e52;
+    --tag-activated-text: #85aaff;
 }

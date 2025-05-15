@@ -6,7 +6,7 @@ import MasterdataSheet from '../MasterdataSheet';
 import MasterdataForm from '../MasterdataForm/MasterdataForm'; 
 import TransactionSheet from '../TransactionSheet/TransactionSheet';
 import CustomForm from '../CustomForm/CustomForm';
-import { ItemType } from '../../config/itemTypes'; // потрібен для визначення типу
+import { ItemType } from '../../config/itemTypes';
 import '../../styles/ContentArea.css';
 
 const ContentArea = () => {
@@ -16,15 +16,22 @@ const ContentArea = () => {
   const renderContent = () => {
     if (!activeTab) return <Dashboard />;
 
-    // Якщо вкладка розділу
+    // Вкладка типу: розділ з групами
     if (activeTab.type === 'sectionGroups') {
       return <SectionGroups sectionName={activeTab.title} groups={activeTab.data} />;
     }
+
+    // 🔥 Додано: підтримка custom-вкладок (наприклад, Додатки)
+    if (activeTab.type === 'custom' && activeTab.content) {
+      return activeTab.content;
+    }
+
+    // Вкладка редагування елемента
     if (activeTab.type === 'directoryItem') {
       return <MasterdataForm data={activeTab.data} originalItem={activeTab.originalItem} />;
     }
 
-    // Якщо вкладка ітема
+    // Вкладка з ітемом (довідник, документ, тощо)
     switch (activeTab.itemType) {
       case ItemType.MASTERDATA:
         return <MasterdataSheet title={activeTab.title} originalItem={activeTab.originalItem} />;

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'core',
     'rest_framework',
     'fleet',
+    'logistic.apps.LogisticConfig',
 ]
 
 MIDDLEWARE = [

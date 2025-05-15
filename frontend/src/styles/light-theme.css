@@ -29,6 +29,17 @@ body.theme-light {
   --active-row-color: rgba(33, 150, 243, 0.12);
   --toast-bg-color: #2e7d32;      /* default green for info */
   --toast-text-color: #ffffff;
+  --button-bg: #e0f3eb;
+  --button-text: #031d10;
+  --button-hover-bg: #d0e9dc;
+  --tag-free-bg: #e6fffb;
+  --tag-free-text: #006d75;
+  --tag-installed-bg: #f6ffed;
+  --tag-installed-text: #237804;
+  --tag-paid-bg: #e6f7ff;
+  --tag-paid-text: #0050b3;
+  --tag-activated-bg: #f0f5ff;
+  --tag-activated-text: #10239e;
   
   }
   

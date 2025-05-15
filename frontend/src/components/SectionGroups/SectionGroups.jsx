@@ -1,28 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Collapse } from 'antd';
 import { useLanguage } from '../../context/LanguageContext';
 import { getDisplayName } from '../../utils/getDisplayName';
 import { iconMapper } from '../../utils/iconMapper';
 import useTabs from '../../hooks/useTabs';
 import '../../styles/SectionGroups.css';
 
+const { Panel } = Collapse;
+
 const SectionGroups = ({ sectionName, groups }) => {
   const { language } = useLanguage();
   const { addTab } = useTabs();
-  const [visibleGroups, setVisibleGroups] = useState([]);
-
-  useEffect(() => {
-    let timeoutIds = [];
-    groups.forEach((group, index) => {
-      const timeoutId = setTimeout(() => {
-        setVisibleGroups(prev => [...prev, group]);
-      }, index * 150); // ❗ Затримка 150ms на кожну групу
-      timeoutIds.push(timeoutId);
-    });
-
-    return () => {
-      timeoutIds.forEach(clearTimeout);
-    };
-  }, [groups]);
 
   const handleItemClick = (item) => {
     if (item.type === 'custom') {
@@ -51,30 +39,62 @@ const SectionGroups = ({ sectionName, groups }) => {
 
   return (
     <div className="section-groups-container">
-      {groups.map((group, index) => (
-        <div
-          key={index}
-          className={`group-card ${visibleGroups.includes(group) ? 'visible' : ''}`}
-        >
+      {groups.map((group, groupIndex) => (
+        <div key={groupIndex} className="group-card visible">
           <div className="group-title">
             {language === 'en' ? group.groupName : group.groupName_ua}
           </div>
-          <div className="group-items">
-            {group.items.map(item => (
-              <button
-                key={item.code}
-                className="group-item-btn"
-                onClick={() => handleItemClick(item)}
-              >
-                {item.icon && (
-                  <span style={{ marginRight: '8px' }}>
-                    {iconMapper[item.icon]}
-                  </span>
-                )}
-                {getDisplayName(item, language)}
-              </button>
-            ))}
-          </div>
+          {/* Якщо у групи є підгрупи — Collapse по підгрупах */}
+          {group.subgroups && group.subgroups.length > 0 ? (
+            <Collapse
+              defaultActiveKey={['0']}
+              ghost
+              className="group-collapse"
+            >
+              {group.subgroups.map((subgroup, idx) => (
+                <Panel
+                  header={language === 'en' ? subgroup.subgroupName : subgroup.subgroupName_ua}
+                  key={String(idx)}
+                  className="subgroup-panel"
+                >
+                  <div className="group-items">
+                    {subgroup.items.map(item => (
+                      <button
+                        key={item.code}
+                        className="group-item-btn"
+                        onClick={() => handleItemClick(item)}
+                      >
+                        {item.icon && (
+                          <span style={{ marginRight: '8px' }}>
+                            {iconMapper[item.icon]}
+                          </span>
+                        )}
+                        {getDisplayName(item, language)}
+                      </button>
+                    ))}
+                  </div>
+                </Panel>
+              ))}
+            </Collapse>
+          ) : (
+            // Якщо підгруп нема — просто список довідників
+            <div className="group-items">
+              {group.items.map(item => (
+                <button
+                  key={item.code}
+                  className="group-item-btn"
+                  onClick={() => handleItemClick(item)}
+                >
+                  {item.icon && (
+                    <span style={{ marginRight: '8px' }}>
+                      {iconMapper[item.icon]}
+                    </span>
+                  )}
+                  {getDisplayName(item, language)}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -7,5 +7,6 @@ export const ItemType = {
   JOURNAL: 'journal',        // ➡️ Новий тип для журналів
   PROCESS: 'process',        // ➡️ Новий тип для процесів
   REPORT: 'report',          // ➡️ Новий тип для звітів
+  APPLICATOIN: 'application',
   CUSTOM: 'custom'
 };

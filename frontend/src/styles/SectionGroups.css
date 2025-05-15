@@ -3,7 +3,11 @@
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px;
+  max-height:  calc(100vh - 80px); 
+  overflow-y: auto;
+  align-content: flex-start;
 }
+
 
 .group-card {
   background-color: var(--sidebar-background);
@@ -55,4 +59,30 @@
 
 .group-item-btn:hover {
   background-color: #3d413d;
+}
+
+/* Scrollbar for SectionGroups */
+.section-groups-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.section-groups-container::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb-color); /* задаєш у theme */
+    border-radius: 4px;
+}
+
+.section-groups-container::-webkit-scrollbar-track {
+    background-color: var(--scroll-track-color);
+}
+
+/* Firefox */
+.section-groups-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+}
+
+.group-card {
+  /* ...інші стилі... */
+  max-height: 490px;   /* або більше/менше, підлаштуй під дизайн */
+  overflow-y: auto;
 }

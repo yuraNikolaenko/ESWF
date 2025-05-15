@@ -22,8 +22,26 @@ import {
   BarChartOutlined,
   LineChartOutlined,
   PieChartOutlined,
-  AppstoreOutlined // Для "Kanban Board"
-} from '@ant-design/icons';
+  AppstoreOutlined, // Для "Kanban Board" і "Додатки"
+  ContainerOutlined, // Для "Logistic"
+  CalculatorOutlined, // Для "Accounting"
+  FileSyncOutlined,
+  ContactsOutlined,
+  UserSwitchOutlined,
+  ShoppingCartOutlined,
+  AccountBookOutlined,
+  MessageOutlined,
+  RadarChartOutlined,
+  SyncOutlined,
+  BlockOutlined,
+  IdcardOutlined,
+  MobileOutlined,
+  HomeOutlined,
+  ClusterOutlined,
+  BankOutlined,
+  CreditCardOutlined,
+  FileDoneOutlined, // Для "eTTN"
+} from "@ant-design/icons";
 
 export const iconMapper = {
   CarOutlined: <CarOutlined />,
@@ -46,8 +64,26 @@ export const iconMapper = {
   DropboxOutlined: <DropboxOutlined />, // Для "Inventory Ledger" и "Inventory Journal"
   GlobalOutlined: <GlobalOutlined />, // Для "Currencies"
   ApartmentOutlined: <ApartmentOutlined />, // Для "Organizations"
-  BarChartOutlined: <BarChartOutlined />, // Для отчёта P&L и "Fuel Movement Report"
-  LineChartOutlined: <LineChartOutlined />, // Для отчёта Cash Flow и "Transport Statistics"
-  PieChartOutlined: <PieChartOutlined />, // Для отчёта Balance Sheet
-  AppstoreOutlined: <AppstoreOutlined /> // Для процесса "Kanban Board"
+  BarChartOutlined: <BarChartOutlined />, // Для "Fuel Movement Report", P&L
+  LineChartOutlined: <LineChartOutlined />, // Для "Transport Statistics", Cash Flow
+  PieChartOutlined: <PieChartOutlined />, // Для "Balance Sheet"
+  AppstoreOutlined: <AppstoreOutlined />, // Для "Kanban Board", "Applications"
+  ContainerOutlined: <ContainerOutlined />, // Для "Logistic"
+  CalculatorOutlined: <CalculatorOutlined />, // Для "Accounting"
+  FileSyncOutlined: <FileSyncOutlined />,
+  ContactsOutlined: <ContactsOutlined />,
+  UserSwitchOutlined: <UserSwitchOutlined />,
+  MobileOutlined: <MobileOutlined />,
+  ShoppingCartOutlined: <ShoppingCartOutlined />,
+  MessageOutlined: <MessageOutlined />,
+  RadarChartOutlined: <RadarChartOutlined />,
+  FileDoneOutlined: <FileDoneOutlined />,
+  AccountBookOutlined: <AccountBookOutlined />, // Для "eTTN"
+  BlockOutlined: <BlockOutlined />,
+    HomeOutlined: <HomeOutlined />,               // Склади
+  ClusterOutlined: <ClusterOutlined />,         // Підрозділи
+  BankOutlined: <BankOutlined />,               // Банки
+  CreditCardOutlined: <CreditCardOutlined />,
+  IdcardOutlined: <IdcardOutlined />, // Для "eTTN"
+  SyncOutlined: <SyncOutlined />, // Для "eTTN"
 };

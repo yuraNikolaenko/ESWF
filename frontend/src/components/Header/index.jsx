@@ -10,12 +10,14 @@ import { useToast } from "../../context/ToastContext";
 import MultiLevelMenu from "./MultiLevelMenu";
 import UserDropdown from "./UserDropdown";
 import ThemeLanguageControls from "./ThemeLanguageControls";
+import ApplicationsPanel from "../panels/ApplicationsPanel";
+import SearchBar from "./SearchBar"; // Додаємо SearchBar
 
 const Header = ({ onToggleChat }) => {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
   const { addTab } = useTabs();
-  const { showToast } = useToast(); // ← глобальний тост
+  const { showToast } = useToast();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(null);
@@ -28,17 +30,26 @@ const Header = ({ onToggleChat }) => {
   };
 
   const handleItemClick = (item) => {
-    addTab({
-      id: `item-${item.code}`,
-      title: item.name || item.code,
-      type: "directoryList",
-      code: item.code,
-      itemType: item.type,
-      originalItem: item,
-      data: null,
-    });
+    if (item.code === "applications") {
+      addTab({
+        id: "apps-panel",
+        title: "Додатки",
+        type: "custom",
+        content: <ApplicationsPanel />,
+      });
+    } else {
+      addTab({
+        id: `item-${item.code}`,
+        title: item.name || item.code,
+        type: "directoryList",
+        code: item.code,
+        itemType: item.type,
+        originalItem: item,
+        data: null,
+      });
 
-    showToast(`Selected: ${item.name || item.code}`, "info");
+      showToast(`Вибрано: ${item.name || item.code}`, "info");
+    }
 
     setTimeout(() => {
       setMenuOpen(false);
@@ -73,6 +84,9 @@ const Header = ({ onToggleChat }) => {
         toggleLanguage={toggleLanguage}
         onToggleChat={onToggleChat}
       />
+
+      {/* Додаємо SearchBar одразу після ThemeLanguageControls */}
+      <SearchBar sections={sections} addTab={addTab} />
 
       <UserDropdown theme={theme} />
     </header>
